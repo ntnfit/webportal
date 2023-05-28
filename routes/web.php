@@ -28,7 +28,7 @@ Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->nam
 Route::get('/users/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
 Route::put('/users/update/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('users.update');
 Route::put('/users/update-password/{id}', [App\Http\Controllers\UserController::class, 'updatePassword'])->name('users.updatePassword');
-Route::get('/users/show-create', [App\Http\Controllers\UserController::class, 'showCreate'])->name('users.showCreate');
+Route::get('/users/create', [App\Http\Controllers\UserController::class, 'showCreate'])->name('users.showCreate');
 Route::post('/users/insert', [App\Http\Controllers\UserController::class, 'insert'])->name('users.insert');
 
 // Purchasing management
