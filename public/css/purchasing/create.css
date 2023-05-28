@@ -1,0 +1,84 @@
+.dropSelect {
+    background-color: rgb(148, 145, 145);
+    color: white;
+    padding: 6px;
+    border-radius: 4px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropSelect option{
+    background-color: white;
+    color: black;
+    padding: 7px 7px;
+    font-size: 14px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+.dropSelect .example{
+    background-color: lightgray;
+    color: white;
+    font-style: italic;
+}
+
+.dropSelect option:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: grey;
+}
+
+.item-input{
+    display: flex;
+    flex-direction: column;
+}
+
+.input-field{
+    width: fit-content;
+    font-size: 14px;
+    padding: 4px;
+    outline: none;
+}
+
+.form-control::placeholder{
+    font-size: 13px !important;
+}
+
+.error-message{
+    font-size: 12px;
+    color: red;
+}
+
+.table{
+    display: block;
+    max-width: -moz-fit-content;
+    max-width: fit-content;
+    margin: 0 auto;
+    white-space: nowrap;    
+    width: 100%;
+    overflow-x: auto;
+}
