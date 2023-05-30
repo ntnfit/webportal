@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{{ route('home') }}" class="brand-link">
-        <img src="{{ url('/images/logo.jfif') }}" alt="Logo" class="logo-img">
-        <span class="brand-text font-weight-bold d-flex justify-content-center">Admin</span>
+        <img src="{{ url('/images/adv-logo1.jpg')}}" alt="Logo" class="logo-img" >
+        {{-- <span class="brand-text font-weight-bold d-flex justify-content-center"></span> --}}
     </a>
 
     <div class="sidebar">
