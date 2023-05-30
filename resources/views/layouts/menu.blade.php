@@ -39,7 +39,7 @@ $user = Auth::user();
 <li class="nav-item">
     <a href="{{ route('fix-asset') }}" class="nav-link {{ Request::is('fix-asset') ? 'active' : '' }}">
         <i class="fa fa-credit-card"> </i>
-        <p>Fixed Assets</p>
+        <p>Fixed  Assets</p>
     </a>
 </li>
 
