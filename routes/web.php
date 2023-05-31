@@ -18,6 +18,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/orders-list', function () {
+    return view('orders.list');
+});
+
+Route::get('/contract', function () {
+    return view('contract.form');
+});
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/custom-login', [App\Http\Controllers\CustomAuthController::class, 'customLogin'])->name('customLogin');
 
