@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a2e2cd28c5a8283ba04aaddeb784acd9",
+    "content-hash": "4d21fc5f620c42e188d2c2e1a1f08a74",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -1644,35 +1644,36 @@
         },
         {
             "name": "laravel/sanctum",
-            "version": "v2.15.1",
+            "version": "v3.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sanctum.git",
-                "reference": "31fbe6f85aee080c4dc2f9b03dc6dd5d0ee72473"
+                "reference": "8ebda85d59d3c414863a7f4d816ef8302faad876"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sanctum/zipball/31fbe6f85aee080c4dc2f9b03dc6dd5d0ee72473",
-                "reference": "31fbe6f85aee080c4dc2f9b03dc6dd5d0ee72473",
+                "url": "https://api.github.com/repos/laravel/sanctum/zipball/8ebda85d59d3c414863a7f4d816ef8302faad876",
+                "reference": "8ebda85d59d3c414863a7f4d816ef8302faad876",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "illuminate/console": "^6.9|^7.0|^8.0|^9.0",
-                "illuminate/contracts": "^6.9|^7.0|^8.0|^9.0",
-                "illuminate/database": "^6.9|^7.0|^8.0|^9.0",
-                "illuminate/support": "^6.9|^7.0|^8.0|^9.0",
-                "php": "^7.2|^8.0"
+                "illuminate/console": "^9.21|^10.0",
+                "illuminate/contracts": "^9.21|^10.0",
+                "illuminate/database": "^9.21|^10.0",
+                "illuminate/support": "^9.21|^10.0",
+                "php": "^8.0.2"
             },
             "require-dev": {
                 "mockery/mockery": "^1.0",
-                "orchestra/testbench": "^4.0|^5.0|^6.0|^7.0",
-                "phpunit/phpunit": "^8.0|^9.3"
+                "orchestra/testbench": "^7.0|^8.0",
+                "phpstan/phpstan": "^1.10",
+                "phpunit/phpunit": "^9.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.x-dev"
+                    "dev-master": "3.x-dev"
                 },
                 "laravel": {
                     "providers": [
@@ -1705,7 +1706,7 @@
                 "issues": "https://github.com/laravel/sanctum/issues",
                 "source": "https://github.com/laravel/sanctum"
             },
-            "time": "2022-04-08T13:39:49+00:00"
+            "time": "2023-05-01T19:39:51+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -3170,6 +3171,64 @@
                 }
             ],
             "time": "2023-02-25T19:38:58+00:00"
+        },
+        {
+            "name": "predis/predis",
+            "version": "v2.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/predis/predis.git",
+                "reference": "a77a43913a74f9331f637bb12867eb8e274814e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/predis/predis/zipball/a77a43913a74f9331f637bb12867eb8e274814e5",
+                "reference": "a77a43913a74f9331f637bb12867eb8e274814e5",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.3",
+                "phpstan/phpstan": "^1.9",
+                "phpunit/phpunit": "^8.0 || ~9.4.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Predis\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Till Krüss",
+                    "homepage": "https://till.im",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "A flexible and feature-complete Redis client for PHP.",
+            "homepage": "http://github.com/predis/predis",
+            "keywords": [
+                "nosql",
+                "predis",
+                "redis"
+            ],
+            "support": {
+                "issues": "https://github.com/predis/predis/issues",
+                "source": "https://github.com/predis/predis/tree/v2.1.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/tillkruss",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-03-02T18:32:04+00:00"
         },
         {
             "name": "psr/container",

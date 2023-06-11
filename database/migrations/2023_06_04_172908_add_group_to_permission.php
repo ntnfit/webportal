@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('items', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->bigInteger('price');
-            $table->integer('quantity');
-            $table->integer('status')->default(1);
-            $table->timestamps();
+        Schema::table('permissions', function (Blueprint $table) {
+            $table->string('group')->after('[guard_name]')->nullable();
         });
     }
 
@@ -30,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('items');
+        Schema::table('permissions', function (Blueprint $table) {
+            $table->string('group')->after('[guard_name]')->nullable();
+        });
     }
 };

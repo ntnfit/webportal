@@ -1,105 +1,163 @@
 <?php
-
+    
 namespace App\Http\Controllers;
-
-use App\Models\User;
+    
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+use DB;
+use Hash;
+use Illuminate\Support\Arr;
+    
 
 class UserController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
+    // function __construct()
+    // {
+    //      $this->middleware('permission:users-list|users-create|users-edit|users-delete', ['only' => ['index','show']]);
+    //      $this->middleware('permission:users-create', ['only' => ['create','store']]);
+    //      $this->middleware('permission:users-edit', ['only' => ['edit','update']]);
+    //      $this->middleware('permission:users-delete', ['only' => ['destroy']]);
+    // }
 
     /**
-     * Show the application dashboard.
+     * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\Response
      */
-
     public function index(Request $request)
-    {
-        $title = 'List User';
-        $search = $request->input('search') ?? "";
-        if ($search != '') {
-            $all_user = User::where('name', 'like', "%$search%")->orWhere('email', 'like', "%$search%")->orderBy('created_at', 'DESC')->get();
-        } else {
-            // $all_user = User::all()->sortByDesc('created_at');
-            $all_user = User::latest()->simplepaginate(3);
+    {$search = $request->input('search');
+        $query = User::orderBy('id', 'DESC');
+    
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('email', 'like', '%' . $search . '%');
+            });
         }
-        $user = Auth::user();
-        return view('users.index', compact('all_user', 'user', 'search', 'title'));
+    
+        $data = $query->paginate(20);
+    
+        return view('users.index', compact('data', 'search'))
+            ->with('i', ($request->input('page', 1) - 1) * 20);
     }
-
-    public function showCreate()
+    
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        $title = 'Create new user';
-        return view('users.create', compact('title'));
+        $roles = Role::pluck('name','name')->all(); 
+        return view('users.create',compact('roles'));
     }
-
-    public function insert(Request $request)
+    
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
-        $request->validate([
+        $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:8|confirmed',
-            'password_confirmation' => 'required|min:8',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|same:confirm-password',
+            'roles' => 'required',
+            'UserID'=>'required|unique:users,UserID'
         ]);
-        $user = new User();
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->password = bcrypt($request->input('password'));
-        $user->save();
-        return redirect('/users')->with('message', 'Create new user successfully!');
+    
+        $input = $request->all();
+        $input['password'] = Hash::make($input['password']);
+    
+        $user = User::create($input);
+        $user->assignRole($request->input('roles'));
+    
+        return redirect()->route('users.index')
+                        ->with('success','User created successfully');
     }
-
-    public function edit($user_id)
+    
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
     {
-        $title = 'Edit User';
-        $user = User::find($user_id);
-        return view('users.edit', compact('user', 'title'));
+        $user = User::find($id);
+        return view('users.show',compact('user'));
     }
-
-    public function update(Request $request, $user_id)
+    
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
     {
-        $request->validate([
+        $user = User::find($id);
+        $roles = Role::pluck('name','name')->all();
+        $userRole = $user->roles->pluck('name','name')->all();
+        $usersap = DB::table('OUSR')
+        // ->whereNotIn('USERID', function($query) {
+        //     $query->select(DB::raw('isnull(USERID, 0)'))
+        //           ->from('users');
+        // })
+        ->get();
+       
+        return view('users.edit',compact('user','roles','userRole','usersap'));
+    }
+    
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
             'name' => 'required',
+            'email' => 'required|email|unique:users,email,'.$id,
+            'password' => 'same:confirm-password',
+            'roles' => 'required',
+            'UserID'=>'required|unique:users,UserID,'.$id
         ]);
-        $user = User::find($user_id);
-
-        if ($request->password == '') {
-            $password = $user->password;
-        } else {
-            $password = Hash::make($request->password);
+    
+        $input = $request->all();
+        if(!empty($input['password'])){ 
+            $input['password'] = Hash::make($input['password']);
+        }else{
+            $input = Arr::except($input,array('password'));    
         }
-
-        $user->update([
-            'name' => $request->name,
-            'status' => $request->status,
-            'password' => $password,
-        ]);
-
-        return redirect('/users')->with('message', 'Update user successfully!');
+    
+        $user = User::find($id);
+        $user->update($input);
+        DB::table('model_has_roles')->where('model_id',$id)->delete();
+    
+        $user->assignRole($request->input('roles'));
+    
+        return redirect()->route('users.index')
+                        ->with('success','User updated successfully');
     }
-
-    public function updatePassword(Request $request, $user_id)
+    
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
     {
-        $request->validate([
-            'password' => 'required|min:8|confirmed',
-        ]);
-        $user = User::find($user_id);
-        $user->update([
-            'password' => bcrypt($request->password),
-        ]);
-        return redirect('/users')->with('message', 'Update password of user successfully!');
+        User::find($id)->delete();
+        return redirect()->route('users.index')
+                        ->with('success','User deleted successfully');
     }
 }

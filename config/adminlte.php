@@ -14,8 +14,8 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
-    'title_prefix' => '',
+    'title' => 'GTVHub',
+    'title_prefix' => 'GT',
     'title_postfix' => '',
 
     /*
@@ -30,8 +30,8 @@ return [
     |
     */
 
-    'use_ico_only' => false,
-    'use_full_favicon' => false,
+    'use_ico_only' => true,
+    'use_full_favicon' =>true,
 
     /*
     |--------------------------------------------------------------------------
@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>GTV </b>HUB',
+    'logo_img' => 'images/ico/tsc.ico',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => 'GTV HUB',
 
     /*
     |--------------------------------------------------------------------------
@@ -84,9 +84,9 @@ return [
     */
 
     'auth_logo' => [
-        'enabled' => false,
+        'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'images/ico/tsc.ico',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -109,7 +109,7 @@ return [
     'preloader' => [
         'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'images/ico/tsc.ico',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
@@ -130,11 +130,11 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
+    'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => false,
-    'usermenu_desc' => false,
-    'usermenu_profile_url' => false,
+    'usermenu_image' => true,
+    'usermenu_desc' => true,
+    'usermenu_profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -192,7 +192,7 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar' => 'sidebar-light-primary elevation-4',
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-white navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
@@ -234,7 +234,7 @@ return [
 
     'right_sidebar' => false,
     'right_sidebar_icon' => 'fas fa-cogs',
-    'right_sidebar_theme' => 'dark',
+    'right_sidebar_theme' => 'lightblue',
     'right_sidebar_slide' => true,
     'right_sidebar_push' => true,
     'right_sidebar_scrollbar_theme' => 'os-theme-light',
@@ -259,7 +259,7 @@ return [
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
-    'profile_url' => false,
+    'profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -292,81 +292,78 @@ return [
     'menu' => [
         // Navbar items:
         [
-            'type'         => 'navbar-search',
-            'text'         => 'search',
-            'topnav_right' => true,
+            'type'         => 'navbar-notification',
+        'id'           => 'my-notification',
+        'icon'         => 'fas fa-bell',
+        'url'          => 'notifications/show',
+        'topnav_right' => true,
+        'dropdown_mode'   => true,
+        'dropdown_flabel' => 'All notifications',
+            'update_cfg'   => [
+                'route'  => ['notifications.get', ['param' => 'val']],
+                'period' => 30,
+            ],
         ],
+    
         [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
         ],
 
-        // Sidebar items:
-        
-        ['header' => 'account_settings'],
+        // Sidebar items: 
         [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'text' => 'Orders',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-shopping-cart',
         ],
         [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+            'text' => 'Payment Request',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-money-bill-wave',
         ],
         [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
+            'text' => 'Contract',
+            'url'  => '/contract',
+            'icon' => 'fas fa-fw fa-file-contract',
+        ],
+        [
+            'text' => 'Approvals',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-check-circle',
+        ],
+        [
+            'text' => 'Fix Asset',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-wrench',
+        ],
+        [
+            'text' => 'Master Data Management',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-database',
+        ],
+        [
+            'text' => 'Users & Roles',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-users',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text'    => 'Users management',
+                    'shift'   => 'ml-3',
+                    'icon'=> 'fas fa-fw fa-user',
+                    'url'  => '/users',
                 ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text'    => 'Roles management',
+                    'shift'   => 'ml-3',
+                    'icon'=> 'fas fa-hockey-puck',
+                    'url'  => 'menu/child2',
                 ],
             ],
         ],
-        ['header' => 'labels'],
         [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
+            'text' => 'Setting',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-cogs',
         ],
     ],
 
