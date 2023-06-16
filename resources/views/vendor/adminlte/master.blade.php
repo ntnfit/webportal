@@ -34,6 +34,8 @@
     @else
         <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
     @endif
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.js" defer></script>
+    <script src="{{ mix('js/app.js') }}"></script>
 
     {{-- Extra Configured Plugins Stylesheets --}}
     @include('adminlte::plugins', ['type' => 'css'])
@@ -41,12 +43,12 @@
     {{-- Livewire Styles --}}
     @if(config('adminlte.livewire'))
         @if(app()->version() >= 7)
-            @livewireStyles
+        @livewireStyles
+      
         @else
             <livewire:styles />
         @endif
     @endif
-
     {{-- Custom Stylesheets (post AdminLTE) --}}
     @yield('adminlte_css')
 
@@ -100,7 +102,6 @@
             <livewire:scripts />
         @endif
     @endif
-
     {{-- Custom Scripts --}}
     @yield('adminlte_js')
 

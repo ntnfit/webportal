@@ -8,7 +8,9 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ProfilesController;
+use App\Http\Controllers\contract\ContractController;
 use App\Http\Middleware\CheckStatus;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,7 +35,10 @@ Route::group(['middleware' => ['auth',CheckStatus::class]], function() {
     Route::resource('users', UserController::class);
     Route::get('/netsuite/customers', [App\Http\Controllers\NetSuiteController::class, 'lookupCustomer'])->name('lookupCustomer');
     Route::get('/netsuite/all-customers', [App\Http\Controllers\NetSuiteController::class, 'getAllCustomer'])->name('customers');
+    // contract
+    Route::get('/generate-contract', [ContractController::class, 'Render'])->name('contract.generate');
 
+    //
     Route::get('/', function () {
         return redirect()->route('home');;
     });

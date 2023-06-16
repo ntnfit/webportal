@@ -309,7 +309,7 @@ return [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
         ],
-
+        'MAIN NAVIGATION',
         // Sidebar items: 
         [
             'text' => 'Orders',
@@ -341,6 +341,7 @@ return [
             'url'  => '#',
             'icon' => 'fas fa-fw fa-database',
         ],
+        '-------------------------------',
         [
             'text' => 'Users & Roles',
             'url'  => '#',
@@ -519,5 +520,5 @@ return [
     |
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];

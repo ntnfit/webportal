@@ -27,21 +27,23 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {$search = $request->input('search');
-        $query = User::orderBy('id', 'DESC');
+    public function index()
+    {
+        // $search = $request->input('search');
+        // $query = User::orderBy('id', 'DESC');
     
-        if (!empty($search)) {
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', '%' . $search . '%')
-                  ->orWhere('email', 'like', '%' . $search . '%');
-            });
-        }
+        // if (!empty($search)) {
+        //     $query->where(function ($q) use ($search) {
+        //         $q->where('name', 'like', '%' . $search . '%')
+        //           ->orWhere('email', 'like', '%' . $search . '%');
+        //     });
+        // }
     
-        $data = $query->paginate(20);
+        // $data = $query->paginate(20);
     
-        return view('users.index', compact('data', 'search'))
-            ->with('i', ($request->input('page', 1) - 1) * 20);
+        // return view('users.index', compact('data', 'search'))
+        //     ->with('i', ($request->input('page', 1) - 1) * 20);
+            return view('users.index');
     }
     
     /**
