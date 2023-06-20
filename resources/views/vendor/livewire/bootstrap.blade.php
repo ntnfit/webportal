@@ -1,7 +1,9 @@
-<div>
+<div style="display: flex;justify-content: flex-start;">
     @if ($paginator->hasPages())
         @php(isset($this->numberOfPaginatorsRendered[$paginator->getPageName()]) ? $this->numberOfPaginatorsRendered[$paginator->getPageName()]++ : $this->numberOfPaginatorsRendered[$paginator->getPageName()] = 1)
-        
+        <div class="pagination-info">
+            <span>Showing {{ $paginator->firstItem() }} to {{ $paginator->lastItem() }} of {{ $paginator->total() }} results</span>
+        </div>
         <nav>
             <ul class="pagination">
                 {{-- Previous Page Link --}}
@@ -46,5 +48,6 @@
                 @endif
             </ul>
         </nav>
+
     @endif
 </div>

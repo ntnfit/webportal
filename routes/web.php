@@ -1,8 +1,8 @@
 <?php
 
-  
+
 use Illuminate\Support\Facades\Route;
-  
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -29,6 +29,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::group(['middleware' => ['auth',CheckStatus::class]], function() {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     //users
+    Route::get('/profile', [ProfilesController::class, 'index'])->name('profiles');
     Route::patch('/profile', [ProfilesController::class, 'update'])->name('profile.update');
     Route::patch('/resetpass', [ProfilesController::class, 'updatepass'])->name('profile.updatepass');
     Route::resource('roles', RoleController::class);

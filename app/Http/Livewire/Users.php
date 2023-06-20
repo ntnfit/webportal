@@ -17,6 +17,9 @@ class Users extends Component
    // public $isOpen = false; // New property to control modal visibility
     public $status;
     public $statusUserId;
+    public $editUserId;
+    public $editName;
+    public $editEmail;
     protected $rules = [
         'name' => 'required',
         'email' => 'required|email|unique:users,email',
@@ -26,7 +29,7 @@ class Users extends Component
 
     public function render()
     {
-        $query = User::orderBy('id', 'DESC');
+        $query = User::where('status','<>',3)->orderBy('id', 'DESC');
 
         if (!empty($this->search)) {
             $query->where(function ($q) {
@@ -36,7 +39,7 @@ class Users extends Component
         }
 
         $users = $query->paginate(10);
-      
+
         return view('livewire.users', compact('users'));
     }
 
@@ -53,16 +56,16 @@ class Users extends Component
        // $this->isOpen = false; // Close the modal after form submission
         // Show a success message using Toastr.js
         $this->dispatchBrowserEvent('alert', ['message' =>'add user success']);
-        $this->dispatchBrowserEvent('removeModalBackdrop',['id'=>'#myModal']); 
+        $this->dispatchBrowserEvent('removeModalBackdrop',['id'=>'#myModal']);
     }
 
     public function openModal()
     {
         $this->resetForm();
        // $this->isOpen = true; // Open the modal
-      
+
     }
-    
+
     private function resetForm()
     {
         $this->name = '';
@@ -70,7 +73,7 @@ class Users extends Component
         $this->password = '';
         $this->passwordConfirmation = '';
         $this->resetValidation();
-      
+
     }
     public function openStatusModal($userId)
     {
@@ -79,6 +82,10 @@ class Users extends Component
     }
     public function updateStatus()
     {
+
+        $this->validate([
+            'status' => 'required',
+        ]);
         $user = User::findOrFail($this->statusUserId);
         $user->status = $this->status;
         $user->save();
@@ -89,5 +96,38 @@ class Users extends Component
         $this->dispatchBrowserEvent('alert', ['type' => 'success', 'message' => 'User status updated successfully!']);
        // $this->dispatchBrowserEvent('removeModalBackdrop',['id'=>'#statusModal']);
     }
-   
+    public function editUser($userId)
+    {
+        $user = User::findOrFail($userId);
+
+        $this->editUserId = $user->id;
+        $this->editName = $user->name;
+        $this->editEmail = $user->email;
+
+        $this->dispatchBrowserEvent('openEditModal');
+    }
+
+    public function updateUser()
+    {
+        $this->validate([
+            'editName' => 'required',
+            'editEmail' => 'required|email',
+        ]);
+
+        $user = User::findOrFail($this->editUserId);
+
+        $user->name = $this->editName;
+        $user->email = $this->editEmail;
+
+        $user->save();
+
+        $this->dispatchBrowserEvent('alert', ['type' => 'success', 'message' => 'User updated successfully!']);
+    }
+    public function deleteUser($userId)
+    {
+        $user = User::findOrFail($userId);
+        $user->status = 3;
+        $user->save();
+        $this->dispatchBrowserEvent('alert', ['message' => 'User deleted successfully!']);
+    }
 }
