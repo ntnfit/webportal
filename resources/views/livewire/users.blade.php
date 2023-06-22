@@ -7,12 +7,12 @@
                 <button class="btn btn-success" data-toggle="modal" wire:click="openModal" data-target="#myModal">Create New User</button>
             </div>
         </div>
-        <!-- Search input -->
+        {{-- <!-- Search input -->
         <div class="col-lg-6">
             <div class="pull-right">
                 <input wire:model="search" type="text" class="form-control form-control-md" placeholder="Search by name or email">
             </div>
-        </div>
+        </div> --}}
     </div>
 
     <!-- Create New User Modal -->
@@ -65,7 +65,7 @@
     </div>
 
     <!-- User Table -->
-    <div class="table-responsive">
+    {{-- <div class="table-responsive">
         <table class="table">
             <!-- Table header -->
             <thead>
@@ -122,7 +122,7 @@
             </tbody>
         </table>
         {!! $users->links() !!}
-    </div>
+    </div> --}}
 
     <!-- Edit User Modal -->
     <div wire:ignore.self class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">

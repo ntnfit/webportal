@@ -1,11 +1,11 @@
 require('./bootstrap');
 require('admin-lte');
 
-// import Alpine from 'alpinejs'
+import Alpine from 'alpinejs'
 
-// window.Alpine = Alpine
+window.Alpine = Alpine
 
-// import './../../vendor/power-components/livewire-powergrid/dist/powergrid'
-// import './../../vendor/power-components/livewire-powergrid/dist/powergrid.css'
+import './../../vendor/power-components/livewire-powergrid/dist/powergrid'
+import './../../vendor/power-components/livewire-powergrid/dist/powergrid.css'
 
-// Alpine.start()
+Alpine.start()
