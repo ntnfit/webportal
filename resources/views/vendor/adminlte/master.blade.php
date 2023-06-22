@@ -72,7 +72,16 @@
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="{{ asset('favicon/ms-icon-144x144.png') }}">
     @endif
-
+ <style>
+    .brand-link .brand-image {
+    width: 170px !important;
+    height: 65px !important;
+    max-height: 49px !important;
+    }
+    a.brand-link {
+    height: 60px;
+    }
+ </style>
 </head>
 
 <body class="@yield('classes_body')" @yield('body_data')>
@@ -88,6 +97,7 @@
         <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
     @else
         <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>
+        <script src="{{ asset('vendor/livewire-power/powergird.js') }}"></script>
     @endif
 
     {{-- Extra Configured Plugins Scripts --}}
@@ -97,6 +107,7 @@
     @if(config('adminlte.livewire'))
         @if(app()->version() >= 7)
             @livewireScripts
+
         @else
             <livewire:scripts />
         @endif

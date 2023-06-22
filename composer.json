@@ -17,6 +17,7 @@
         "laravelcollective/html": "^6.4",
         "livewire/livewire": "*",
         "nguyentn/netsuite-laravel": "^1.0",
+        "openspout/openspout": "^4.15",
         "phpoffice/phpword": "^1.1",
         "power-components/livewire-powergrid": "^4.8",
         "predis/predis": "^2.1",

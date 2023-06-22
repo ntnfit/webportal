@@ -43,6 +43,25 @@ Route::group(['middleware' => ['auth',CheckStatus::class]], function() {
     Route::get('/', function () {
         return redirect()->route('home');;
     });
+    // netsuite data
+    Route::name('ns')->prefix('ns')->group(function () {
+        Route::get('customers', function () {
+            return view('netsuite.customer');
+        })->name('customer');
+        Route::get('vendors', function () {
+            return view('netsuite.vendor');
+        })->name('customer');
+
+        Route::get('items', function () {
+            return view('netsuite.item');
+        })->name('item');
+        Route::get('employees', function () {
+            return view('netsuite.employee');
+        })->name('employee');
+
+
+
+    });
 
     Route::get('/orders-list', function () {
         return view('orders.list');

@@ -11,8 +11,8 @@ return [
     | Configure here the theme of your choice.
     */
 
-    'theme' => \PowerComponents\LivewirePowerGrid\Themes\Tailwind::class,
-    //'theme' => \PowerComponents\LivewirePowerGrid\Themes\Bootstrap5::class,
+    //'theme' => \PowerComponents\LivewirePowerGrid\Themes\Tailwind::class,
+    'theme' => \PowerComponents\LivewirePowerGrid\Themes\Bootstrap5::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     | Plugins used: flatpickr.js to datepicker.
     |
     */
-
+    'alpinejs_cdn' => 'https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js',
     'plugins' => [
         /*
          * https://flatpickr.js.org

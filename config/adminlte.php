@@ -63,11 +63,11 @@ return [
     |
     */
 
-    'logo' => '<b>GTV </b>HUB',
-    'logo_img' => 'images/ico/tsc.ico',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo' => '<b>&nbsp;</b>',
+    'logo_img' => 'images/advlogo.jpg',
+    'logo_img_class' => 'brand-image',
     'logo_img_xl' => null,
-    'logo_img_xl_class' => 'brand-image-xs',
+    'logo_img_xl_class' => 'brand-image-md',
     'logo_img_alt' => 'GTV HUB',
 
     /*
@@ -304,13 +304,13 @@ return [
                 'period' => 30,
             ],
         ],
-    
+
         [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
         ],
-        'MAIN NAVIGATION',
-        // Sidebar items: 
+        'MAIN MENU',
+        // Sidebar items:
         [
             'text' => 'Orders',
             'url'  => '#',
@@ -326,11 +326,11 @@ return [
             'url'  => '/contract',
             'icon' => 'fas fa-fw fa-file-contract',
         ],
-        [
-            'text' => 'Approvals',
-            'url'  => '#',
-            'icon' => 'fas fa-fw fa-check-circle',
-        ],
+        // [
+        //     'text' => 'Approvals',
+        //     'url'  => '#',
+        //     'icon' => 'fas fa-fw fa-check-circle',
+        // ],
         [
             'text' => 'Fix Asset',
             'url'  => '#',
@@ -340,6 +340,32 @@ return [
             'text' => 'Master Data Management',
             'url'  => '#',
             'icon' => 'fas fa-fw fa-database',
+            'submenu' => [
+                [
+                    'text'    => '🥝Item master data',
+                    'shift'   => 'ml-3',
+                    'url'  => '/ns/items',
+                    'icon'=> ''
+                ],
+                [
+                    'text'    => '🤝Customers',
+                    'shift'   => 'ml-3',
+                    'icon'=> '',
+                    'url'  => '/ns/customers',
+                ],
+                [
+                    'text'    => '🚚Vendors',
+                    'shift'   => 'ml-3',
+                    'icon'=> '',
+                    'url'  => '/ns/vendors',
+                ],
+                [
+                    'text'    => '👷Employees',
+                    'shift'   => 'ml-3',
+                    'url'  => '/ns/employees',
+                    'icon'=> ''
+                ],
+            ],
         ],
         '-------------------------------',
         [
