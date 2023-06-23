@@ -41551,40 +41551,8 @@ a.text-muted:hover {
 .dark-mode .dark-mode.accent-gray-dark .page-item .page-link:hover, .dark-mode .dark-mode.accent-gray-dark .page-item .page-link:focus {
   color: #3f474e;
 }
-.content-wrapper{
-  background-color: white !important;
-  height: auto !important;
-}
 
-.main-header{
-  background-color: #f4f6f9;
-}
-
-.title{
-  font-size: 33px;
-  padding: 15px;
-  background: -webkit-linear-gradient(#7CB9E8, #A3C1AD);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.brand-link{
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.logo-img{
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
-}
-
-@media screen and (max-width: 767px) {
-  .title{
-    padding: 20px 0;
-  }
-  table{
-    font-size: 14px;
-  }
-}
+/* Import Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
