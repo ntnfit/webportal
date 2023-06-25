@@ -1,94 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ config('app.name') }}</title>
-
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-          integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
-          crossorigin="anonymous"/>
-
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-
-</head>
-<body class="hold-transition login-page">
-<div class="login-box">
-    <div class="login-logo">
-        <a href="{{ url('/home') }}"><b>{{ config('app.name') }}</b></a>
-    </div>
-
-    <div class="card">
-        <div class="card-body login-card-body">
-            <p class="login-box-msg">{{ __('auth.reset_password.title') }}</p>
-
-            <form action="{{ route('password.update') }}" method="POST">
-                @csrf
-
-                @php
-                    if (!isset($token)) {
-                        $token = \Request::route('token');
-                    }
-                @endphp
-
-                <input type="hidden" name="token" value="{{ $token }}">
-
-                <div class="input-group mb-3">
-                    <input type="email"
-                           name="email"
-                           class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                           placeholder="Email">
-                    <div class="input-group-append">
-                        <div class="input-group-text"><span class="fas fa-envelope"></span></div>
-                    </div>
-                    @if ($errors->has('email'))
-                        <span class="error invalid-feedback">{{ $errors->first('email') }}</span>
+@extends('layouts.auth_layout')
+@section('title')
+    {{ __('messages.reset_password') }}
+@endsection
+@section('meta_content')
+    - {{ __('messages.reset_password') }}
+@endsection
+@section('page_css')
+    <link rel="stylesheet" href="{{ mix('assets/css/simple-line-icons.css')}}">
+@endsection
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mx-4">
+                <div class="card-body p-4">
+                    @if(Session::has('error'))
+                        <div class="alert alert-danger">{{Session::get('error')}}</div>
                     @endif
-                </div>
-
-                <div class="input-group mb-3">
-                    <input type="password"
-                           name="password"
-                           class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                           placeholder="Password">
-                    <div class="input-group-append">
-                        <div class="input-group-text"><span class="fas fa-lock"></span></div>
-                    </div>
-                    @if ($errors->has('password'))
-                        <span class="error invalid-feedback">{{ $errors->first('password') }}</span>
+                    @if(Session::has('success'))
+                        <div class="alert alert-success">{{Session::get('success')}}</div>
                     @endif
+                    <form method="post" action="{{ url('/password/reset') }}" id="resetPasswordForm">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="token" value="{{$token}}">
+                        <h1>{{ __('messages.reset_password') }}</h1>
+                        <p class="text-muted">{{ __('messages.enter_email_and_new_password') }}</p>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">@</span>
+                            </div>
+                            <input type="email" class="form-control {{ $errors->has('email')?'is-invalid':'' }}"
+                                   name="email" value="{{ (old('email')) ? old('email') : $email }}" id="email"
+                                   placeholder="{{ __('messages.email') }}">
+                            @if ($errors->has('email'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="icon-lock"></i>
+                              </span>
+                            </div>
+                            <input type="password" class="form-control {{ $errors->has('password')?'is-invalid':''}}"
+                                   name="password" id="password" placeholder="{{ __('messages.password') }}"
+                                   onkeypress="return avoidSpace(event)">
+                            @if ($errors->has('password'))
+                                <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                        <div class="input-group mb-4">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">
+                                <i class="icon-lock"></i>
+                              </span>
+                            </div>
+                            <input type="password" name="password_confirmation" id="password_confirmation" class="form-control"
+                                   placeholder="{{ __('messages.confirm_password') }}" onkeypress="return avoidSpace(event)">
+                            @if ($errors->has('password_confirmation'))
+                                <span class="help-block">
+                                  <strong>{{ $errors->first('password_confirmation') }}</strong>
+                               </span>
+                            @endif
+                        </div>
+                        <button type="button" id="resetPasswordBtn" class="btn btn-block btn-primary btn-block btn-flat">
+                            <i class="fa fa-btn fa-refresh"></i> {{ __('messages.reset') }}
+                        </button>
+                    </form>
                 </div>
-
-                <div class="input-group mb-3">
-                    <input type="password"
-                           name="password_confirmation"
-                           class="form-control"
-                           placeholder="Confirm Password">
-                    <div class="input-group-append">
-                        <div class="input-group-text"><span class="fas fa-lock"></span></div>
-                    </div>
-                    @if ($errors->has('password_confirmation'))
-                        <span class="error invalid-feedback">{{ $errors->first('password_confirmation') }}</span>
-                    @endif
-                </div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-primary btn-block">{{ __('auth.reset_password.reset_pwd_btn') }}</button>
-                    </div>
-                    <!-- /.col -->
-                </div>
-            </form>
+            </div>
         </div>
-        <!-- /.login-card-body -->
     </div>
-
 </div>
-
-<script src="{{ mix('js/app.js') }}"></script>
-
-</body>
-</html>
+@endsection

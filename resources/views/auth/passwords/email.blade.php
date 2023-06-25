@@ -1,75 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ config('app.name') }}</title>
-
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-        integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
-        crossorigin="anonymous" />
-
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-
-</head>
-
-<body class="hold-transition login-page">
-    <div class="login-box">
-        <div class="login-logo">
-            <a href="{{ url('/home') }}"><b>{{ config('app.name') }}</b></a>
-        </div>
-
-        <!-- /.login-logo -->
-        <div class="card">
-            <div class="card-body login-card-body">
-                <p class="login-box-msg">Forgot password</p>
-
-                @if (session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
+@extends('layouts.auth_layout')
+@section('title')
+    {{ __('messages.forget_password') }}
+@endsection
+@section('meta_content')
+    - {{ __('messages.request_for_password_reset_link') }}
+@endsection
+@section('page_css')
+    <link rel="stylesheet" href="{{ mix('assets/css/simple-line-icons.css')}}">
+@endsection
+@section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="p-4 account-container w-100">
+                <div class="card p-sm-4 p-3 login-group border-0">
+                    <div class="card-body p-1">
+                        @include('flash::message')
+                        <form method="post" action="{{ url('/password/email') }}" id="forgetPasswordForm">
+                            {{ csrf_field() }}
+                            <h1 class="login-group__title mb-3">{{ __('messages.forgot_your_password') }}</h1>
+                            <p class="text-muted login-group__sub-title mb-4">{{ __('messages.enter_email_to_reset_password') }}</p>
+                            <div class="input-group mb-4">
+                                <input type="email"
+                                       class="form-control login-group__input {{ $errors->has('email')?'is-invalid':'' }}"
+                                       name="email" value="{{ old('email') }}" id="email"
+                                       placeholder="{{ __('messages.email') }}" required>
+                                @if ($errors->has('email'))
+                                    <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center flex-wrap forgot-pw-block">
+                                <a href="{{ url('/login') }}"
+                                   class="text-center back-to-login__btn text-decoration-none">Back To Login</a>
+                                <button type="button" id="forgetPasswordBtn"
+                                        class="btn btn-primary login-group__register-btn float-end ms-auto">
+                                    <i class="fa fa-btn fa-envelope me-2"></i> {{ __('messages.reset_password') }}
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                @endif
-
-                <form action="{{ route('password.email') }}" method="post">
-                    @csrf
-
-                    <div class="input-group mb-3">
-                        <input type="email" name="email"
-                            class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="Email">
-                        <div class="input-group-append">
-                            <div class="input-group-text"><span class="fas fa-envelope"></span></div>
-                        </div>
-                        @if ($errors->has('email'))
-                            <span class="error invalid-feedback">{{ $errors->first('email') }}</span>
-                        @endif
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-block">Send email verify reset</button>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                </form>
-
-                <p class="mt-3 mb-1">
-                    <a href="{{ route('login') }}">Already have an account? Login</a>
-                </p>
-                <p class="mb-0">
-                    <a href="{{ route('register') }}" class="text-center">Create an Account!</a>
-                </p>
+                </div>
             </div>
-            <!-- /.login-card-body -->
         </div>
     </div>
-    <!-- /.login-box -->
-
-    <script src="{{ mix('js/app.js') }}"></script>
-
-</body>
-
-</html>
+@endsection

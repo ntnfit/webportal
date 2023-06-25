@@ -1,165 +1,280 @@
 <?php
-    
+
 namespace App\Http\Controllers;
-    
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+
+use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Models\Role;
 use App\Models\User;
-use Spatie\Permission\Models\Role;
-use DB;
+use App\Queries\UserDataTable;
+use App\Repositories\UserRepository;
+use Carbon\Carbon;
+use DataTables;
+use Exception;
 use Hash;
-use Illuminate\Support\Arr;
-    
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
+use Response;
 
-class UserController extends Controller
+class UserController extends AppBaseController
 {
+    /** @var UserRepository */
+    private $userRepository;
 
-    // function __construct()
-    // {
-    //      $this->middleware('permission:users-list|users-create|users-edit|users-delete', ['only' => ['index','show']]);
-    //      $this->middleware('permission:users-create', ['only' => ['create','store']]);
-    //      $this->middleware('permission:users-edit', ['only' => ['edit','update']]);
-    //      $this->middleware('permission:users-delete', ['only' => ['destroy']]);
-    // }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct(UserRepository $userRepo)
     {
-        // $search = $request->input('search');
-        // $query = User::orderBy('id', 'DESC');
-    
-        // if (!empty($search)) {
-        //     $query->where(function ($q) use ($search) {
-        //         $q->where('name', 'like', '%' . $search . '%')
-        //           ->orWhere('email', 'like', '%' . $search . '%');
-        //     });
-        // }
-    
-        // $data = $query->paginate(20);
-    
-        // return view('users.index', compact('data', 'search'))
-        //     ->with('i', ($request->input('page', 1) - 1) * 20);
-            return view('users.index');
+        $this->userRepository = $userRepo;
     }
-    
+
     /**
-     * Show the form for creating a new resource.
+     * @return Factory|View
+     */
+    public function getProfile()
+    {
+        return view('profile');
+    }
+
+    /**
+     * Display a listing of the User.
      *
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return Application|Factory|\Illuminate\Contracts\View\View|Response
+     *
+     * @throws Exception
+     */
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            return Datatables::of((new UserDataTable())->get($request->only(['filter_user', 'privacy_filter'])))->make(true);
+        }
+        $roles = Role::pluck('name', 'id')->toArray();
+
+        return view('users.index')->with([
+            'roles' => $roles,
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new User.
+     *
+     * @return Application|Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
-        $roles = Role::pluck('name','name')->all(); 
-        return view('users.create',compact('roles'));
+        $roles = Role::all()->pluck('name', 'id')->toArray();
+
+        return view('users.create')->with(['roles' => $roles]);
     }
-    
+
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created User in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  CreateUserRequest  $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request): JsonResponse
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
-            'roles' => 'required',
-            'UserID'=>'required|unique:users,UserID'
-        ]);
-    
-        $input = $request->all();
-        $input['password'] = Hash::make($input['password']);
-    
-        $user = User::create($input);
-        $user->assignRole($request->input('roles'));
-    
-        return redirect()->route('users.index')
-                        ->with('success','User created successfully');
+        $input = $this->validateInput($request->all());
+
+        $this->userRepository->store($input);
+
+        return $this->sendSuccess('User saved successfully.');
     }
-    
+
     /**
-     * Display the specified resource.
+     * Display the specified User.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  User  $user
+     * @return Application|Factory|\Illuminate\Contracts\View\View
      */
-    public function show($id)
+    public function show(User $user)
     {
-        $user = User::find($id);
-        return view('users.show',compact('user'));
+        $user->roles;
+        $user = $user->apiObj();
+
+        return view('users.show')->with('user', $user);
     }
-    
+
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified User.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  User  $user
+     * @return JsonResponse
      */
-    public function edit($id)
+    public function edit(User $user): JsonResponse
     {
-        $user = User::find($id);
-        $roles = Role::pluck('name','name')->all();
-        $userRole = $user->roles->pluck('name','name')->all();
-        $usersap = DB::table('OUSR')
-        // ->whereNotIn('USERID', function($query) {
-        //     $query->select(DB::raw('isnull(USERID, 0)'))
-        //           ->from('users');
-        // })
-        ->get();
-       
-        return view('users.edit',compact('user','roles','userRole','usersap'));
+        $user->roles;
+        $user = $user->apiObj();
+
+        return $this->sendResponse(['user' => $user], 'User retrieved successfully.');
     }
-    
+
     /**
-     * Update the specified resource in storage.
+     * Update the specified User in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  User  $user
+     * @param  UpdateUserRequest  $request
+     * @return JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(User $user, UpdateUserRequest $request): JsonResponse
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password',
-            'roles' => 'required',
-            'UserID'=>'required|unique:users,UserID,'.$id
-        ]);
-    
-        $input = $request->all();
-        if(!empty($input['password'])){ 
-            $input['password'] = Hash::make($input['password']);
-        }else{
-            $input = Arr::except($input,array('password'));    
+        if (! empty($user->is_system)) {
+            return $this->sendError('You can not update system generated user.');
         }
-    
-        $user = User::find($id);
-        $user->update($input);
-        DB::table('model_has_roles')->where('model_id',$id)->delete();
-    
-        $user->assignRole($request->input('roles'));
-    
-        return redirect()->route('users.index')
-                        ->with('success','User updated successfully');
+
+        $input = $this->validateInput($request->all());
+        $this->userRepository->update($input, $user->id);
+
+        return $this->sendSuccess('User updated successfully.');
     }
-    
+
     /**
-     * Remove the specified resource from storage.
+     * @param  Request  $request
+     * @return JsonResponse
+     */
+    public function updateLanguage(Request $request): JsonResponse
+    {
+        $language = $request->get('languageName');
+
+        $user = getLoggedInUser();
+        $user->update(['language' => $language]);
+
+        return $this->sendSuccess('Language updated successfully.');
+    }
+
+    /**
+     * Remove the specified User from storage.
+     *
+     * @param  User  $user
+     * @return JsonResponse
+     *
+     * @throws Exception
+     */
+    public function archiveUser(User $user): JsonResponse
+    {
+        if (! empty($user->is_system)) {
+            return $this->sendError('You can not archive system generated user.');
+        }
+
+        $this->userRepository->delete($user->id);
+
+        return $this->sendSuccess('User archived successfully.');
+    }
+
+    /**
+     * Remove the specified User from storage.
+     *
+     * @param  Request  $request
+     * @return JsonResponse
+     */
+    public function restoreUser(Request $request): JsonResponse
+    {
+        $id = $request->get('id');
+        $this->userRepository->restore($id);
+
+        return $this->sendSuccess('User restored successfully.');
+    }
+
+    /**
+     * Remove the specified User from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
+     *
+     * @throws Exception
      */
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
-        User::find($id)->delete();
-        return redirect()->route('users.index')
-                        ->with('success','User deleted successfully');
+        $user = User::withTrashed()->whereId($id)->first();
+
+        if (empty($user)) {
+            return $this->sendError('User not found.');
+        }
+
+        if (! empty($user->is_system)) {
+            return $this->sendError('You can not delete system generated user.');
+        }
+
+        $this->userRepository->deleteUser($user->id);
+
+        return $this->sendSuccess('User deleted successfully.');
+    }
+
+    /**
+     * @param  User  $user
+     * @return JsonResponse
+     */
+    public function activeDeActiveUser(User $user): JsonResponse
+    {
+        $this->userRepository->checkUserItSelf($user->id);
+        $this->userRepository->activeDeActiveUser($user->id);
+
+        return $this->sendSuccess('User status updated successfully.');
+    }
+
+    /**
+     * @param $input
+     * @return mixed
+     */
+    public function validateInput($input)
+    {
+        if (isset($input['password']) && ! empty($input['password'])) {
+            $input['password'] = Hash::make($input['password']);
+        } else {
+            unset($input['password']);
+        }
+
+        $input['is_active'] = (! empty($input['is_active'])) ? 1 : 0;
+
+        return $input;
+    }
+
+    /**
+     * @param  User  $user
+     * @return Application|RedirectResponse|Redirector
+     */
+    public function userImpersonateLogin(User $user)
+    {
+        Auth::user()->impersonate($user);
+
+        if (\Auth::check() && \Auth::user()->hasPermissionTo('manage_conversations')) {
+            return redirect(url('/conversations'));
+        } elseif (\Auth::check()) {
+            if (\Auth::user()->getAllPermissions()->count() > 0) {
+                $url = getPermissionWiseRedirectTo(\Auth::user()->getAllPermissions()->first());
+
+                return redirect(url($url));
+            } else {
+                return redirect(url('/conversations'));
+            }
+        }
+    }
+
+    /**
+     * @return Application|RedirectResponse|Redirector
+     */
+    public function userImpersonateLogout()
+    {
+        Auth::user()->leaveImpersonation();
+
+        return redirect(url('/conversations'));
+    }
+
+    /**
+     * @param  User  $user
+     * @return JsonResponse
+     */
+    public function isEmailVerified(User $user): JsonResponse
+    {
+        $emailVerified = $user->email_verified_at == null ? Carbon::now() : null;
+        $user->update(['email_verified_at' => $emailVerified]);
+
+        return $this->sendSuccess('Email Verified successfully.');
     }
 }

@@ -40,9 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
         'api' => [
-            'driver' => 'sanctum',
+            'driver' => 'passport',
             'provider' => 'users',
+            'hash' => false,
         ],
     ],
 
@@ -66,7 +68,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => \App\Models\User::class,
         ],
 
         // 'users' => [
@@ -111,10 +113,5 @@ return [
     */
 
     'password_timeout' => 10800,
-    'api' => [
-        'driver' => 'token',
-        'provider' => 'users',
-        'hash' => false,
-        'expiry' => 1800, // 30 minutes in seconds
-    ],
+
 ];
