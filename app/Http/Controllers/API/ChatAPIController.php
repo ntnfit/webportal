@@ -57,7 +57,6 @@ class ChatAPIController extends AppBaseController
     public function getArchiveConversations(Request $request)
     {
         $input = $request->all();
-     ;
         $input['isArchived'] = 1;
         $conversations = $this->chatRepository->getLatestConversations($input);
 

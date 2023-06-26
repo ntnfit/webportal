@@ -169,7 +169,7 @@ class ChatRepository extends BaseRepository
         }
 
         $chatList = $chatList->orderBy('cc.created_at', 'desc')->offset($offset)->limit(10)
-            ->get();//->keyBy('id');
+            ->get()->keyBy('id');
 
         // TODO : refactor this later
         // To replace user's last conversation when he/she leave the group
