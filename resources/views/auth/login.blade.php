@@ -59,14 +59,14 @@
                                                    class="me-2" {{ (Cookie::get('remember') !== null) ? 'checked' : '' }}> {{ __('messages.remember_me') }}
                                         </label>
                                     </div>
-                                    <div
+                                    {{-- <div
                                             class="text-end d-flex justify-content-end">
                                         <a class="btn btn-link px-0 py-0 login-group__sub-title register-link
                                                     text-decoration-none"
                                            href="{{ url('/password/reset') }}">
                                             {{ __('messages.forgot_password?') }}
                                         </a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="row flex-sm-row flex-column">
                                     <div class="col-12">
@@ -108,7 +108,7 @@
                         </div>
                     </div>
 
-                    <div class="card text-white bg-primary py-5 d-md-down-none text-center d-none">
+                    {{-- <div class="card text-white bg-primary py-5 d-md-down-none text-center d-none">
                         <div class="row card-body text-center h-100">
                             <div class="col-12 sign-up-div">
                                 <h1 class="login-group__signup-text">{{ __('messages.sign_up') }}</h1>
@@ -117,7 +117,7 @@
                                    href="{{ url('/register') }}">{{ __('messages.register_now!') }}</a>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
