@@ -71,6 +71,7 @@ class ChatRepository extends BaseRepository
      */
     public function getLatestConversations($input = [])
     {
+
         $offset = isset($input['offset']) ? $input['offset'] : 0;
         $isArchived = isset($input['isArchived']) ? 1 : 0;
         $authId = getLoggedInUserId();
@@ -91,7 +92,7 @@ class ChatRepository extends BaseRepository
             })
             ->where('conversations.to_type', '=', Conversation::class)
             ->selectRaw(
-                "max(conversations.id) as latest_id , u.id as user_id, 0 as group_id,
+                "max(conversations.id) as latest_id , u.id as user_id, '0' as group_id,
                  sum(CASE WHEN conversations.status = 0 AND from_id != $authId THEN 1 ELSE 0 END) as unread_count"
             )
             ->groupBy(DB::raw("CASE WHEN from_id = $authId THEN to_id ELSE from_id END"))->groupBy('u.id');
@@ -141,12 +142,14 @@ class ChatRepository extends BaseRepository
             ->pluck('owner_id')->toArray();
 
         $chatList = Conversation::with($relations)->newQuery();
+
         $chatList = $chatList->select('temp.*', 'cc.*');
         if ($isGroupChatEnabled) {
             $chatList->from(DB::raw("($subQueryStr union $groupSubQueryStr) as temp"));
         } else {
             $chatList->from(DB::raw("($subQueryStr) as temp"));
         }
+
         $chatList->setBindings($bindings)
             ->leftJoin('conversations as cc', 'cc.id', '=', 'temp.latest_id');
         if (! $isArchived) {
@@ -155,6 +158,7 @@ class ChatRepository extends BaseRepository
             $archiveGroups = [];
             if ($isGroupChatEnabled) {
                 $archiveGroups = ArchivedUser::whereArchivedBy(getLoggedInUserId())->whereOwnerType(Group::class)->get()->pluck('owner_id')->toArray();
+
             }
             $chatList = $chatList->where(function ($query) use ($archiveUsers, $archiveGroups, $isGroupChatEnabled) {
                 $query->whereIn('temp.user_id', $archiveUsers);
@@ -165,7 +169,7 @@ class ChatRepository extends BaseRepository
         }
 
         $chatList = $chatList->orderBy('cc.created_at', 'desc')->offset($offset)->limit(10)
-            ->get()->keyBy('id');
+            ->get();//->keyBy('id');
 
         // TODO : refactor this later
         // To replace user's last conversation when he/she leave the group
@@ -178,6 +182,7 @@ class ChatRepository extends BaseRepository
         if (! $isGroupChatEnabled) {
             return array_values($chatList);
         }
+
 
         foreach ($groupsConversation as $conversation) {
             if ($conversation->group->lastConversations->isEmpty()) {
