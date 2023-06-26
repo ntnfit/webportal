@@ -5,7 +5,7 @@
                 <img class="navbar-brand-minimized me-4" src="{{ getThumbLogoUrl() }}" width="30" alt="Infyom Logo"
                      height="30" alt="{{config('app.name')}}">
                 <span class="d-flex">
-                    <span class="brand-name-infy">Infy</span><span class="brand-name-chat">Chat</span>
+                    <span class="brand-name-infy" style="color: #a09e9a; font-size: 15px" >AEON delight</span>
                 </span>
             </a>
             <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
@@ -16,5 +16,6 @@
         <ul class="nav">
             @include('layouts.menu')
         </ul>
+
     </nav>
 </div>

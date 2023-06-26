@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home.index');
+   return redirect('/home');
 });
 
 Auth::routes();
@@ -139,4 +139,22 @@ Route::middleware(['permission:manage_reported_users', 'auth', 'user.activated']
     Route::resource('reported-users', ReportUserController::class);
 });
 
+//netsuite+main function
+Route::middleware([ 'auth', 'user.activated'])->group(function () {
 
+    Route::get('/ns/employees', function () {
+        return view('netsuite.employees');
+     })->name('employees.index');
+
+     Route::get('/ns/customers', function () {
+        return view('netsuite.customers');
+     })->name('customers.index');
+
+     Route::get('/ns/vendors', function () {
+        return view('netsuite.vendors');
+     })->name('vendors.index');
+
+     Route::get('/ns/items', function () {
+        return view('netsuite.employees');
+     })->name('items.index');
+});

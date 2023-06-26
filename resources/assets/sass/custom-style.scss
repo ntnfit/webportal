@@ -3,12 +3,12 @@
 $bg-light: #f3f3f3;
 $primary-color: #009ef7;
 $login-color: #024a66;
-$btn-bg-hover-color: #0095e8;
+$btn-bg-hover-color: #f1faff;
 $secondary-color: #f5f8fa;
 $secondary-hover-color: #f1faff;
-$sidebar-bg: #1e1e2d;
-$sidebar-bg-active: #1c1c28;
-$input-focus-color: #eef3f7;
+$sidebar-bg: #eef3f7;
+$sidebar-bg-active: #6969d2;
+$input-focus-color: #8fb8d9;
 $icon-color: #a1a5b7;
 
 body.app {
@@ -1337,16 +1337,16 @@ html:not([dir=rtl]) .sidebar {
     }
 
     .sidebar-inner-header{
-        background-color: $sidebar-bg-active;
-        padding: 9.75px 7px;
+        background-color: #ffffff;
+        padding: 8.75px 7px;
 
         &:hover {
-            background-color: $sidebar-bg-active;
+            background-color:#ffffff;
         }
     }
 
     .navbar-brand {
-        padding: 12px 16px;
+        padding: 8px 16px;
         transition: all 0.3s ease;
 
         .brand-name-infy {
