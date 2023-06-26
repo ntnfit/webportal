@@ -157,7 +157,7 @@ class SettingsRepository
         $extension = strtolower($file->getClientOriginalExtension());
         if (in_array($extension, ['jpg', 'png', 'jpeg'])) {
             $fileName = Str::random(10).'.'.$extension;
-            $imageThumb = Image::make($file->getRealPath())->fit(15, 15);
+            $imageThumb = Image::make($file->getPathname())->fit(15, 15);
             $imageThumb = $imageThumb->stream();
 
             Storage::disk('local')->put($fileName, $imageThumb->__toString());
