@@ -20,8 +20,8 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')
-                ->onUpdate('NO ACTION')
-                ->onDelete('NO ACTION');
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

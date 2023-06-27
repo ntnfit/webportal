@@ -29,7 +29,7 @@
                     </div>
                     <div class="cursor-pointer d-xl-none ms-auto hamburger-top"
                         id="dropdownMenuButton" aria-expanded="false">
-                         {{if my_role === 2}}
+                         {{if my_role == 2}}
                         <a href="javascript:void(0)" class="text-decoration-none me-2 btn-add-members" data-group-id="{{:user.id}}" title="<?php __('messages.add_members') ?>"><img src="images/icons/mobile-add.png" alt="add"></a>
                         {{/if}}
                         <i class="fa fa-bars open-profile-menu" aria-hidden="true"></i>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="chat__area-action">
                     <!-- setting view -->
-                    {{if my_role === 2}}
+                    {{if my_role == 2}}
                     <a href="javascript:void(0)" class="text-decoration-none me-2 btn-add-members" data-group-id="{{:user.id}}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="<?php echo trans('messages.add_members') ?>
     " title="<?php echo trans('messages.add_members') ?>"><img src="images/icons/add.png" class="add-icon" alt="add"></a>
                     {{/if}}

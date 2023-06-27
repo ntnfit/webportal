@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('group_users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('group_id');
+            $table->string('group_id');
             $table->unsignedInteger('user_id');
             $table->integer('role')->default(1);
             $table->unsignedInteger('added_by');
@@ -25,23 +25,23 @@ return new class extends Migration
 
             $table->foreign('group_id')
                 ->references('id')->on('groups')
-                ->onUpdate('NO ACTION')
-                ->onDelete('NO ACTION');
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
 
             $table->foreign('user_id')
                 ->references('id')->on('users')
-                ->onUpdate('NO ACTION')
-                ->onDelete('NO ACTION');
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
 
             $table->foreign('removed_by')
                 ->references('id')->on('users')
-                ->onUpdate('NO ACTION')
-                ->onDelete('NO ACTION');
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
 
             $table->foreign('added_by')
                 ->references('id')->on('users')
-                ->onUpdate('NO ACTION')
-                ->onDelete('NO ACTION');
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        // Schema::table('conversations', function (Blueprint $table) {
-        //     $table->dropForeign('conversations_to_id_foreign');
-        //     $table->dropIndex('conversations_to_id_foreign');
-        // });
+        Schema::table('conversations', function (Blueprint $table) {
+            $table->dropForeign('conversations_to_id_foreign');
+            $table->dropIndex('conversations_to_id_foreign');
+        });
 
         Schema::table('conversations', function (Blueprint $table) {
-          //  $table->string('to_id')->change();
+            $table->string('to_id')->change();
             $table->string('to_type')->default(\App\Models\Conversation::class)->after('to_id')->comment('1 => Message, 2 => Group Message');
         });
     }

@@ -219,7 +219,7 @@ class ChatRepository extends BaseRepository
                 $archivedUser->delete();
             }
         }
-
+      
         $input['to_type'] = Conversation::class;
         $input['from_id'] = getLoggedInUserId();
         if (isValidURL($input['message'])) {
@@ -278,17 +278,19 @@ class ChatRepository extends BaseRepository
         }
 
         $notificationInput = [
-            'owner_id' => $conversation['from_id'],
+            'owner_id' => (string)$conversation['from_id'],
             'owner_type' => User::class,
             'notification' => $conversation['message'],
             'to_id' => $conversation['to_id'],
             'message_type' => $conversation['message_type'],
             'file_name' => $conversation['file_name'],
         ];
+       
         /** @var NotificationRepository $notificationRepo */
         $notificationRepo = app(NotificationRepository::class);
+       
         $notificationRepo->sendNotification($notificationInput, $conversation['to_id']);
-
+       
         return $conversation;
     }
 

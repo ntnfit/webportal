@@ -1,1 +1,36 @@
-(()=>{"use strict";$("#createRoleForm").on("submit",(function(e){if(e.preventDefault(),!(""===$("#role_name").val().trim().replace(/ \r\n\t/g,"")))return jQuery(this).find("#btnCreateRole").button("loading"),$("#createRoleForm")[0].submit(),!0;displayToastr("Error","error","Name field is not contain only white space")})),$("#editRoleForm").on("submit",(function(e){if(e.preventDefault(),!(""===$("#edit_role_name").val().trim().replace(/ \r\n\t/g,"")))return jQuery(this).find("#btnEditSave").button("loading"),$("#editRoleForm")[0].submit(),!0;displayToastr("Error","error","Name field is not contain only white space")}))})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+var __webpack_exports__ = {};
+/*!*************************************************************!*\
+  !*** ./resources/assets/js/admin/roles/create_edit_role.js ***!
+  \*************************************************************/
+
+
+$('#createRoleForm').on('submit', function (event) {
+  event.preventDefault();
+  var name = $('#role_name').val();
+  var emptyName = name.trim().replace(/ \r\n\t/g, '') === '';
+  if (emptyName) {
+    displayToastr('Error', 'error', 'Name field is not contain only white space');
+    return;
+  }
+  var loadingButton = jQuery(this).find('#btnCreateRole');
+  loadingButton.button('loading');
+  $('#createRoleForm')[0].submit();
+  return true;
+});
+$('#editRoleForm').on('submit', function (event) {
+  event.preventDefault();
+  var editName = $('#edit_role_name').val();
+  var emptyEditName = editName.trim().replace(/ \r\n\t/g, '') === '';
+  if (emptyEditName) {
+    displayToastr('Error', 'error', 'Name field is not contain only white space');
+    return;
+  }
+  var loadingButton = jQuery(this).find('#btnEditSave');
+  loadingButton.button('loading');
+  $('#editRoleForm')[0].submit();
+  return true;
+});
+/******/ })()
+;

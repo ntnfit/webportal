@@ -21,9 +21,9 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('reported_by')
-                ->references('id')->on('users')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+                ->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('reported_to')
-                ->references('id')->on('users')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+                ->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

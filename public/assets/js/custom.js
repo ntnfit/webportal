@@ -1,1 +1,96 @@
-(()=>{"use strict";window.displayToastr=function(e,t,o){$.toast({heading:e,text:o,showHideTransition:"slide",icon:t,position:"top-right"})},window.htmlSpecialCharsDecode=function(e){return jQuery("<div />").html(e).text()},window.setLocalStorageItem=function(e,t){localStorage.setItem(e,t)},window.getLocalStorageItem=function(e){return localStorage.getItem(e)},window.removeLocalStorageItem=function(e){localStorage.removeItem(e)},$("#changePasswordForm").on("submit",(function(e){e.preventDefault();var t=jQuery(this).find("#btnEditSave");t.button("loading"),$.ajax({url:route("change-password"),type:"POST",data:new FormData($(this)[0]),processData:!1,contentType:!1,success:function(e){e.success&&(displayToastr("Success","success",e.message),setTimeout((function(){location.reload()}),2e3))},error:function(e){displayToastr("Error","error",e.responseJSON.message)},complete:function(){t.button("reset")}})})),window.avoidSpace=function(e){if(32===(e?e.which:window.event.keyCode))return e.stopPropagation(),!1},window.resetModalForm=function(e,t){$(e)[0].reset(),$(t).hide()},window.deleteItemAjax=function(e,t,o){$.ajax({url:e,type:"DELETE",dataType:"json",success:function(e){e.success&&(1==$(t).DataTable().data().count()?$(t).DataTable().page("previous").draw("page"):$(t).DataTable().ajax.reload(null,!1)),displayToastr("Success","success",o+" has been deleted.")},error:function(e){displayToastr("Error","error",e.responseJSON.message)}})},window.notificationSound=function(){var e=document.getElementById("notificationSound");e.currentTime=0,e.play()}})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+var __webpack_exports__ = {};
+/*!***************************************!*\
+  !*** ./resources/assets/js/custom.js ***!
+  \***************************************/
+
+
+window.displayToastr = function (heading, icon, message) {
+  $.toast({
+    heading: heading,
+    text: message,
+    showHideTransition: 'slide',
+    icon: icon,
+    position: 'top-right'
+  });
+};
+window.htmlSpecialCharsDecode = function (string) {
+  return jQuery('<div />').html(string).text();
+};
+window.setLocalStorageItem = function (variable, data) {
+  localStorage.setItem(variable, data);
+};
+window.getLocalStorageItem = function (variable) {
+  return localStorage.getItem(variable);
+};
+window.removeLocalStorageItem = function (variable) {
+  localStorage.removeItem(variable);
+};
+
+/** Change Password */
+$('#changePasswordForm').on('submit', function (event) {
+  event.preventDefault();
+  var loadingButton = jQuery(this).find('#btnEditSave');
+  loadingButton.button('loading');
+  $.ajax({
+    url: route('change-password'),
+    type: 'POST',
+    data: new FormData($(this)[0]),
+    processData: false,
+    contentType: false,
+    success: function success(result) {
+      if (result.success) {
+        displayToastr('Success', 'success', result.message);
+        setTimeout(function () {
+          location.reload();
+        }, 2000);
+      }
+    },
+    error: function error(result) {
+      displayToastr('Error', 'error', result.responseJSON.message);
+    },
+    complete: function complete() {
+      loadingButton.button('reset');
+    }
+  });
+});
+window.avoidSpace = function (event) {
+  var k = event ? event.which : window.event.keyCode;
+  if (k === 32) {
+    event.stopPropagation();
+    return false;
+  }
+};
+window.resetModalForm = function (formId, validationBox) {
+  $(formId)[0].reset();
+  $(validationBox).hide();
+};
+window.deleteItemAjax = function (url, tableId, header) {
+  var callFunction = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+  $.ajax({
+    url: url,
+    type: 'DELETE',
+    dataType: 'json',
+    success: function success(obj) {
+      if (obj.success) {
+        if ($(tableId).DataTable().data().count() == 1) {
+          $(tableId).DataTable().page('previous').draw('page');
+        } else {
+          $(tableId).DataTable().ajax.reload(null, false);
+        }
+      }
+      displayToastr('Success', 'success', header + ' has been deleted.');
+    },
+    error: function error(obj) {
+      displayToastr('Error', 'error', obj.responseJSON.message);
+    }
+  });
+};
+window.notificationSound = function () {
+  var sound = document.getElementById("notificationSound");
+  sound.currentTime = 0;
+  sound.play();
+};
+/******/ })()
+;

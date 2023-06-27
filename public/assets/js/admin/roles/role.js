@@ -1,1 +1,98 @@
-(()=>{"use strict";$(document).ready((function(){$("#roles-table").DataTable({processing:!0,serverSide:!0,order:[[0,"asc"]],ajax:{url:route("roles.index")},columnDefs:[{targets:[2],orderable:!1,className:"text-center",width:"7%"},{targets:[1],orderable:!1}],columns:[{data:"name",name:"name"},{data:function(e){var t='<div class="d-flex flex-wrap">';return e.permissions.length>0?$.each(e.permissions,(function(e,n){t+='<span class="bg-regent-opacity-3 font-size-3 p-1 mr-4 mb-1 permission-lh">'+n.display_name+"</span>"})):t+='<span class="bg-regent-opacity-3 font-size-3 p-1 mr-4 mb-1 permission-lh">N/A</span>',t+="</div>"},name:"permissions.display_name"},{data:function(e){return e.is_default?"":e.id==AuthUserRoleId?'<button title="Delete" class="index__btn btn btn-ghost-danger btn-sm delete-btn" data-id="'.concat(e.id,'"><i class="cui-trash action-icon"></i></button>'):'<div class="d-flex justify-content-center align-items-center"> <a title="Edit" class="index__btn btn btn-ghost-success btn-sm edit-btn mr-1" href="'.concat(route("roles.edit",e.id),'">\n                            <i class="cui-pencil action-icon"></i></a>\n                            <button title="Delete" class="index__btn btn btn-ghost-danger btn-sm delete-btn" data-id="').concat(e.id,'"><i class="cui-trash action-icon"></i></button>\n                            <div>\n                            ')},name:"id"}]});var e=Swal.mixin({customClass:{confirmButton:"btn btn-danger mr-2 btn-lg",cancelButton:"btn btn-secondary btn-lg"},buttonsStyling:!1});$(document).on("click",".delete-btn",(function(t){var n=$(this).data("id");e.fire({title:Lang.get("messages.placeholder.are_you_sure"),html:Lang.get("messages.placeholder.delete_this_role"),icon:"warning",showCancelButton:!0,confirmButtonText:"Delete"}).then((function(e){e.value&&$.ajax({url:route("roles.destroy",n),type:"DELETE",dataType:"json",success:function(e){displayToastr("Success","success","Role deleted successfully."),e.success&&(1==$("#roles-table").DataTable().data().count()?$("#roles-table").DataTable().page("previous").draw("page"):$("#roles-table").DataTable().ajax.reload(null,!1))},error:function(e){displayToastr("Error","error",e.responseJSON.message)}})}))}))}))})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+var __webpack_exports__ = {};
+/*!*************************************************!*\
+  !*** ./resources/assets/js/admin/roles/role.js ***!
+  \*************************************************/
+
+
+$(document).ready(function () {
+  var roleTable = $('#roles-table').DataTable({
+    processing: true,
+    serverSide: true,
+    'order': [[0, 'asc']],
+    ajax: {
+      url: route('roles.index')
+    },
+    columnDefs: [{
+      'targets': [2],
+      'orderable': false,
+      'className': 'text-center',
+      'width': '7%'
+    }, {
+      'targets': [1],
+      'orderable': false
+    }],
+    columns: [{
+      data: 'name',
+      name: 'name'
+    }, {
+      data: function data(row) {
+        var html = '<div class="d-flex flex-wrap">';
+        if (row.permissions.length > 0) {
+          $.each(row.permissions, function (i, v) {
+            html += '<span class="bg-regent-opacity-3 font-size-3 p-1 mr-4 mb-1 permission-lh">' + v.display_name + '</span>';
+          });
+        } else {
+          html += '<span class="bg-regent-opacity-3 font-size-3 p-1 mr-4 mb-1 permission-lh">N/A</span>';
+        }
+        html += '</div>';
+        return html;
+      },
+      name: 'permissions.display_name'
+    }, {
+      data: function data(row) {
+        if (row.is_default) {
+          return '';
+        }
+        if (row.id == AuthUserRoleId) {
+          return "<button title=\"Delete\" class=\"index__btn btn btn-ghost-danger btn-sm delete-btn\" data-id=\"".concat(row.id, "\"><i class=\"cui-trash action-icon\"></i></button>");
+        }
+        return "<div class=\"d-flex justify-content-center align-items-center\"> <a title=\"Edit\" class=\"index__btn btn btn-ghost-success btn-sm edit-btn mr-1\" href=\"".concat(route('roles.edit', row.id), "\">\n                            <i class=\"cui-pencil action-icon\"></i></a>\n                            <button title=\"Delete\" class=\"index__btn btn btn-ghost-danger btn-sm delete-btn\" data-id=\"").concat(row.id, "\"><i class=\"cui-trash action-icon\"></i></button>\n                            <div>\n                            ");
+      },
+      name: 'id'
+    }]
+  });
+  var swalDelete = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-danger mr-2 btn-lg',
+      cancelButton: 'btn btn-secondary btn-lg'
+    },
+    buttonsStyling: false
+  });
+
+  // open delete confirmation model
+  $(document).on('click', '.delete-btn', function (event) {
+    var roleId = $(this).data('id');
+    swalDelete.fire({
+      title: Lang.get('messages.placeholder.are_you_sure'),
+      html: Lang.get('messages.placeholder.delete_this_role'),
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Delete'
+    }).then(function (result) {
+      if (result.value) {
+        $.ajax({
+          url: route('roles.destroy', roleId),
+          type: 'DELETE',
+          dataType: 'json',
+          success: function success(obj) {
+            displayToastr('Success', 'success', 'Role deleted successfully.');
+            if (obj.success) {
+              if ($('#roles-table').DataTable().data().count() == 1) {
+                $('#roles-table').DataTable().page('previous').draw('page');
+              } else {
+                $('#roles-table').DataTable().ajax.reload(null, false);
+              }
+            }
+          },
+          error: function error(data) {
+            displayToastr('Error', 'error', data.responseJSON.message);
+          }
+        });
+      }
+    });
+  });
+});
+/******/ })()
+;

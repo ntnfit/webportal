@@ -13,7 +13,6 @@
     <!-- PWA  -->
     <meta name="theme-color" content="#009ef7"/>
     <link rel="manifest" href="{{ asset('manifest.json') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/livewire-power/powergrid.css') }}">
     <!-- Bootstrap 4.1.3 -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css">
@@ -23,7 +22,6 @@
     <link rel="stylesheet" href="{{ mix('assets/css/jquery.toast.min.css') }}">
     <script src="{{ mix('assets/js/jquery.min.js') }}"></script>
     <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
-
     @if(getLoggedInUser()->is_subscribed)
         @include('layouts.one_signal')
     @endif
@@ -85,7 +83,7 @@
             <a class="nav-link avatar-name" style="margin-right: 10px" data-bs-toggle="dropdown" href="#" role="button"
                aria-haspopup="true" aria-expanded="false">
                 <span class="profile-name">{{ (htmlspecialchars_decode(getLoggedInUser()->name))??'' }}</span>
-                <img class="img-avatar" src="{{getLoggedInUser()->photo_url}}" alt="GTV">
+                <img class="img-avatar" src="{{getLoggedInUser()->photo_url}}" alt="InfyOm">
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-header text-center dropdown-text">
@@ -128,7 +126,7 @@
 <footer class="app-footer">
     <div class="d-flex justify-content-between w-100">
         <div>
-            <a href="https://grantthornton-tsc.com">{{ getAppName() }}</a>
+            <a href="https://chat.infyom.com/">{{ getAppName() }}</a>
             <span>&copy;{{date('Y')}} {{ getCompanyName() }}.</span>
         </div>
         @if(config('app.show_version'))

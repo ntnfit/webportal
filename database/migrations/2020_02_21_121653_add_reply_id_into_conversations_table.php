@@ -17,8 +17,8 @@ return new class extends Migration
             $table->unsignedInteger('reply_to')->nullable();
 
             $table->foreign('reply_to')->references('id')->on('conversations')
-                ->onDelete('NO ACTION')
-                ->onUpdate('NO ACTION');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

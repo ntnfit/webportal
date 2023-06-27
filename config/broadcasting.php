@@ -42,7 +42,7 @@ return [
 //                'encrypted' => true,
 //                'useTLS' => env('PUSHER_SCHEME', 'https') === 'https',
                 'cluster' => env('PUSHER_APP_CLUSTER'),
-                'useTLS' => false,
+                'useTLS' => true,
             ],
             'encrypted' => true,
             'client_options' => [

@@ -2,13 +2,16 @@
 
 use App\Http\Controllers\API;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\ReportUserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FrontCMSController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,14 +24,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-   return redirect('/home');
-});
-
 Auth::routes();
 Route::get('activate', [AuthController::class, 'verifyAccount']);
-
 Route::get('/home', [HomeController::class, 'index']);
 Route::post('update-language', [UserController::class, 'updateLanguage'])->middleware('auth')->name('update-language');
 
@@ -37,6 +34,10 @@ Route::get('/users/impersonate-logout',
     [UserController::class, 'userImpersonateLogout'])->name('impersonate.userLogout');
 
 Route::middleware(['user.activated', 'auth'])->group(function () {
+    
+Route::get('/', function () {
+    return view('home.index');
+});
     //view routes
     Route::get('/conversations',
         [ChatController::class, 'index'])->name('conversations')->middleware('permission:manage_conversations');
@@ -90,7 +91,7 @@ Route::middleware(['user.activated', 'auth'])->group(function () {
     Route::post('groups/{group}', [API\GroupAPIController::class, 'update'])->name('groups.update');
     Route::get('groups', [API\GroupAPIController::class, 'index'])->name('groups.index');
     Route::get('groups/{group}', [API\GroupAPIController::class, 'show'])->name('group.show');
-    Route::put('groups/{group}/add-members', [API\GroupAPIController::class, 'addMembers'])->name('groups-group.add-members');
+    Route::post('groups/{group}/add-members', [API\GroupAPIController::class, 'addMembers'])->name('groups-group.add-members');
     Route::delete('groups/{group}/members/{user}', [API\GroupAPIController::class, 'removeMemberFromGroup'])->name('group-from-member-remove');
     Route::delete('groups/{group}/leave', [API\GroupAPIController::class, 'leaveGroup'])->name('groups.leave');
     Route::delete('groups/{group}/remove', [API\GroupAPIController::class, 'removeGroup'])->name('group-remove');
@@ -139,6 +140,32 @@ Route::middleware(['permission:manage_reported_users', 'auth', 'user.activated']
     Route::resource('reported-users', ReportUserController::class);
 });
 
+Route::middleware([ 'auth', 'user.activated'])->group(function () {
+    Route::get('reported-users', [settingsController::class, 'index'])->name('employee');
+    Route::get('reported-users', [settingsController::class, 'index'])->name('vendors.index');
+    Route::get('reported-users',[settingsController::class, 'index'])->name('custopmers.index');
+    Route::get('reported-users', [settingsController::class, 'index'])->name('items.index');
+});
+
+// // meetings
+// Route::middleware(['permission:manage_meetings', 'auth', 'user.activated'])->group(function () {
+//     Route::resource('meetings', MeetingController::class);
+//     Route::get('meetings/{meeting}/change-status/{status}',
+//         [MeetingController::class, 'changeMeetingStatus'])->name('meeting.change-meeting-status');
+//     Route::get('member/meetings', [MeetingController::class, 'showMemberMeetings'])->name('meetings.member_index');
+// });
+
+// Route::middleware('web')->group(function () {
+//     Route::get('login/{provider}', [SocialAuthController::class, 'redirect']);
+//     Route::get('login/{provider}/callback', [SocialAuthController::class, 'callback']);
+// });
+
+// Route::middleware(['permission:manage_front_cms', 'auth', 'user.activated'])->group(function () {
+//     Route::get('front-cms', [FrontCMSController::class, 'frontCms'])->name('front.cms');
+//     Route::post('front-cms', [FrontCMSController::class, 'updateFrontCms'])->name('front.cms.update');
+// });
+
+//require __DIR__.'/upgrade.php';
 //netsuite+main function
 Route::middleware([ 'auth', 'user.activated'])->group(function () {
 

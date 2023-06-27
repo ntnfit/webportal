@@ -1,5 +1,5 @@
 require('./bootstrap');
-import Alpine from 'alpinejs'
+
 import Echo from 'laravel-echo';
 
 window.Pusher = require('pusher-js');
@@ -15,9 +15,3 @@ window.Echo = new Echo({
         },
     },
 });
-
-
-window.Alpine = Alpine
-
-
-Alpine.start()

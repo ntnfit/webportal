@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('last_conversations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('group_id');
+            $table->string('group_id');
             $table->unsignedInteger('conversation_id');
             $table->unsignedInteger('user_id');
             $table->text('group_details');
@@ -24,18 +24,18 @@ return new class extends Migration
 
             $table->foreign('group_id')
                 ->references('id')->on('groups')
-                ->onUpdate('NO ACTION')
-                ->onDelete('NO ACTION');
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
 
             $table->foreign('user_id')
                 ->references('id')->on('users')
-                ->onUpdate('NO ACTION')
-                ->onDelete('NO ACTION');
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
 
             $table->foreign('conversation_id')
                 ->references('id')->on('conversations')
-                ->onUpdate('NO ACTION')
-                ->onDelete('NO ACTION');
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

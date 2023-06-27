@@ -74,7 +74,7 @@ class GroupUser extends Model
      */
     protected $casts = [
         'id' => 'integer',
-        'group_id' => 'string',
+        'group_id' => 'integer',
         'user_id' => 'integer',
         'added_by' => 'integer',
         'removed_by' => 'integer',

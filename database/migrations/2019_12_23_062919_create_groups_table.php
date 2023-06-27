@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('groups', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('photo_url')->nullable();
@@ -25,8 +25,8 @@ return new class extends Migration
 
             $table->foreign('created_by')
                 ->references('id')->on('users')
-                ->onUpdate('NO ACTION')
-                ->onDelete('NO ACTION');
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

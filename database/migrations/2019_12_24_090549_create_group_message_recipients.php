@@ -23,13 +23,13 @@ return new class extends Migration
 
             $table->foreign('user_id')
                 ->references('id')->on('users')
-                ->onUpdate('NO ACTION')
-                ->onDelete('NO ACTION');
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
 
             $table->foreign('conversation_id')
                 ->references('id')->on('conversations')
-                ->onUpdate('NO ACTION')
-                ->onDelete('NO ACTION');
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

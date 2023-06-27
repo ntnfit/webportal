@@ -4175,7 +4175,7 @@ $(document).ready(function () {
         $(this).attr('disabled');
 
         $.ajax({
-            type: 'PUT',
+            type: 'post',
             url: route('groups-group.add-members',currentSelectedGroupId),
             data: { members: members },
             success: function (result) {

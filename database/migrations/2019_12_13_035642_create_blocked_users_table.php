@@ -20,12 +20,12 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('blocked_by')->references('id')->on('users')
-                ->onDelete('NO ACTION')
-                ->onUpdate('NO ACTION');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
             $table->foreign('blocked_to')->references('id')->on('users')
-                ->onDelete('NO ACTION')
-                ->onUpdate('NO ACTION');
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

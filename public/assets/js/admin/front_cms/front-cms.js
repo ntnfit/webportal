@@ -1,1 +1,58 @@
-(()=>{"use strict";function t(t,n){if(t.files&&t.files[0]){var e=new FileReader;e.onload=function(t){$("#"+n).attr("src",t.target.result)},e.readAsDataURL(t.files[0])}}$("#frontCmsImg").on("change",(function(){t(this,"front-cms-img")})),$("#featuresImg").on("change",(function(){t(this,"features-img")})),$("#testimonialImageInput1").on("change",(function(){t(this,"testimonials-img-1")})),$("#testimonialImageInput2").on("change",(function(){t(this,"testimonials-img-2")})),$("#testimonialImageInput3").on("change",(function(){t(this,"testimonials-img-3")})),$("#startChatImg").on("change",(function(){t(this,"start-chat-img")})),$("#featureImageInput1").on("change",(function(){t(this,"feature-img-1")})),$("#featureImageInput2").on("change",(function(){t(this,"feature-img-2")})),$("#featureImageInput3").on("change",(function(){t(this,"feature-img-3")})),$("#featureImageInput4").on("change",(function(){t(this,"feature-img-4")})),$("#frontCmsFrom").on("submit",(function(t){return t.preventDefault(),jQuery(this).find("#btnSave").button("loading"),$("#frontCmsFrom")[0].submit(),!0}))})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+var __webpack_exports__ = {};
+/*!**********************************************************!*\
+  !*** ./resources/assets/js/admin/front_cms/front-cms.js ***!
+  \**********************************************************/
+
+
+$('#frontCmsImg').on('change', function () {
+  readURL(this, 'front-cms-img');
+});
+$('#featuresImg').on('change', function () {
+  readURL(this, 'features-img');
+});
+$('#testimonialImageInput1').on('change', function () {
+  readURL(this, 'testimonials-img-1');
+});
+$('#testimonialImageInput2').on('change', function () {
+  readURL(this, 'testimonials-img-2');
+});
+$('#testimonialImageInput3').on('change', function () {
+  readURL(this, 'testimonials-img-3');
+});
+$('#startChatImg').on('change', function () {
+  readURL(this, 'start-chat-img');
+});
+$('#featureImageInput1').on('change', function () {
+  readURL(this, 'feature-img-1');
+});
+$('#featureImageInput2').on('change', function () {
+  readURL(this, 'feature-img-2');
+});
+$('#featureImageInput3').on('change', function () {
+  readURL(this, 'feature-img-3');
+});
+$('#featureImageInput4').on('change', function () {
+  readURL(this, 'feature-img-4');
+});
+
+// profile js
+function readURL(input, photoId) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      $('#' + photoId).attr('src', e.target.result);
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+$('#frontCmsFrom').on('submit', function (event) {
+  event.preventDefault();
+  var loadingButton = jQuery(this).find('#btnSave');
+  loadingButton.button('loading');
+  $('#frontCmsFrom')[0].submit();
+  return true;
+});
+/******/ })()
+;

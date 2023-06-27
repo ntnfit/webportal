@@ -63,8 +63,7 @@ trait ImageTrait
                     $fileName = $options['file_name'];
                 }
                 if (! empty($options)) {
-
-                    $imageThumb = Image::make($file->getPathname())->fit($options['width'], $options['height']);
+                    $imageThumb = Image::make($file->getRealPath())->fit($options['width'], $options['height']);
                     $imageThumb = $imageThumb->stream();
                     Storage::put($path.DIRECTORY_SEPARATOR.$fileName, $imageThumb->__toString());
                 } else {
@@ -96,7 +95,7 @@ trait ImageTrait
                     $fileName = $options['file_name'];
                 }
                 if (! empty($options)) {
-                    $imageThumb = Image::make($file->getPathname())->fit($options['width'], $options['height']);
+                    $imageThumb = Image::make($file->getRealPath())->fit($options['width'], $options['height']);
                     $imageThumb = $imageThumb->stream();
                     Storage::disk('pwa')->put('/'.DIRECTORY_SEPARATOR.$fileName, $imageThumb->__toString());
                 } else {
@@ -146,10 +145,10 @@ trait ImageTrait
                     $originalName = sha1($originalName.time());
                     $fileName = 'thumbnail'.'_'.$date.'_'.uniqid().'_'.$originalName.'.'.$extension;
                 }
-                $sourceWidth = Image::make($file->getPathname())->width();
-                $sourceHeight = Image::make($file->getPathname())->height();
+                $sourceWidth = Image::make($file->getRealPath())->width();
+                $sourceHeight = Image::make($file->getRealPath())->height();
                 $result = self::getSizeAdjustedToAspectRatio($sourceWidth, $sourceHeight);
-                $imageThumb = Image::make($file->getPathname())->fit($result['width'], $result['height']);
+                $imageThumb = Image::make($file->getRealPath())->fit($result['width'], $result['height']);
                 $imageThumb = $imageThumb->stream();
                 Storage::put($path.DIRECTORY_SEPARATOR.$fileName, $imageThumb->__toString());
             }
@@ -197,7 +196,7 @@ trait ImageTrait
                 $date = Carbon::now()->format('Y-m-d');
                 $originalName = sha1($originalName.time());
                 $fileName = $date.'_'.uniqid().'_'.$originalName.'.'.$extension;
-                $contents = file_get_contents($file->getPathname());
+                $contents = file_get_contents($file->getRealPath());
                 Storage::put($path.DIRECTORY_SEPARATOR.$fileName, $contents, 'public');
             }
 
@@ -228,7 +227,7 @@ trait ImageTrait
                 $date = Carbon::now()->format('Y-m-d');
                 $originalName = sha1($originalName.time());
                 $fileName = $date.'_'.uniqid().'_'.$originalName.'.'.$extension;
-                $contents = file_get_contents($file->getPathname());
+                $contents = file_get_contents($file->getRealPath());
                 Storage::put($path.DIRECTORY_SEPARATOR.$fileName, $contents, 'public');
             }
 
@@ -279,7 +278,7 @@ trait ImageTrait
                 $date = Carbon::now()->format('Y-m-d');
                 $originalName = sha1($originalName.time());
                 $fileName = $date.'_'.uniqid().'_'.$originalName.'.'.$extension;
-                $contents = file_get_contents($file->getPathname());
+                $contents = file_get_contents($file->getRealPath());
                 Storage::put($path.DIRECTORY_SEPARATOR.$fileName, $contents);
             }
 

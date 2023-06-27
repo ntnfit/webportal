@@ -23,8 +23,8 @@ return new class extends Migration
 
             $table->foreign('from_id')
                 ->references('id')->on('users')
-                ->onUpdate('NO ACTION')
-                ->onDelete('NO ACTION');
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

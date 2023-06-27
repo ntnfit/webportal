@@ -118,11 +118,12 @@
             </div>
 
     <div class="chat-profile__divider"></div>
-    {{if privacy === 2 && my_role === 2 && !removed_from_group}}
+    dd("Dd")
+    {{if privacy == 2 && my_role == 2 && !removed_from_group}}
     <div class="chat-profile__column pb-0">
         <a href="#" class='btn btn-primary btn-add-members' data-group-id="{{:id}}"><?php echo trans('messages.chats.add_members') ?></a>
     </div>
-    {{else privacy === 1 && !removed_from_group}}
+    {{else privacy == 1 && !removed_from_group}}
     <div class="chat-profile__column pb-0">
         <a href="#" class='btn btn-primary btn-add-members' data-group-id="{{:id}}"><?php echo trans('messages.chats.add_members') ?></a>
    </div>

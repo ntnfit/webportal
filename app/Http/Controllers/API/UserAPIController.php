@@ -125,10 +125,8 @@ class UserAPIController extends AppBaseController
      */
     public function getConversation($id, Request $request): JsonResponse
     {
-
         $input = $request->all();
-
-        $data = $this->userRepository->getConversation($id, [(int)$request->after,]);
+        $data = $this->userRepository->getConversation($id, $input);
 
         return $this->sendResponse($data, 'Conversation retrieved successfully.');
     }

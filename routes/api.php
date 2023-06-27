@@ -6,6 +6,7 @@ use App\Http\Controllers\API\ChatAPIController;
 use App\Http\Controllers\API\GroupAPIController;
 use App\Http\Controllers\API\PasswordResetController;
 use App\Http\Controllers\API\RoleAPIController;
+use App\Http\Controllers\API\SocialAuthAPIController;
 use App\Http\Controllers\API\UserAPIController;
 use Illuminate\Broadcasting\BroadcastController;
 use Illuminate\Http\Request;
@@ -57,6 +58,8 @@ Route::middleware(['auth:api', 'user.activated'])->group(function () {
 
     /** create group **/
     Route::post('groups', [GroupAPIController::class, 'create'])->name('create-group');
+    /** Social Login */
+    Route::post('social-login/{provider}', [SocialAuthAPIController::class, 'socialLogin'])->middleware('web');
 });
 
 Route::middleware(['role:Admin', 'auth:api', 'user.activated'])->group(function () {
