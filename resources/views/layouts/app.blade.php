@@ -126,7 +126,7 @@
 <footer class="app-footer">
     <div class="d-flex justify-content-between w-100">
         <div>
-            <a href="https://chat.infyom.com/">{{ getAppName() }}</a>
+            <a href="https://grantthornton-tsc.com/">{{ getAppName() }}</a>
             <span>&copy;{{date('Y')}} {{ getCompanyName() }}.</span>
         </div>
         @if(config('app.show_version'))

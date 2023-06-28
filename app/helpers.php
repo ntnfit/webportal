@@ -162,7 +162,7 @@ function getLogoUrl()
 
     $setting = Setting::where('key', '=', 'logo_url')->first();
     $logoURL = (! empty($setting) && ! empty($setting->value)) ? app(Setting::class)->getLogoUrl($setting->value) : asset('assets/images/logo.png');
-
+     //$logoURL =  asset('uploads/setting/thumbnails/'.$setting->value);//
     return $logoURL;
 }
 

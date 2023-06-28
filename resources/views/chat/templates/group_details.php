@@ -118,7 +118,7 @@
             </div>
 
     <div class="chat-profile__divider"></div>
-    dd("Dd")
+   
     {{if privacy == 2 && my_role == 2 && !removed_from_group}}
     <div class="chat-profile__column pb-0">
         <a href="#" class='btn btn-primary btn-add-members' data-group-id="{{:id}}"><?php echo trans('messages.chats.add_members') ?></a>

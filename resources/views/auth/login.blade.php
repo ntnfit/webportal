@@ -27,12 +27,12 @@
                             <form method="post" action="{{ url('/login') }}" id="loginForm" class="login-group__form">
                                 {{ csrf_field() }}
                                 <h1 class="login-group__title mb-2 text-center">{{ __('messages.login') }}</h1>
-                                <div class="d-flex justify-content-center pb-2">
+                                {{-- <div class="d-flex justify-content-center pb-2">
                                     <span class="me-2 login-group__sub-title">New Here?</span>
                                     <a class="login-group__sub-title register-link active d-flex
                                                     justify-content-center"
                                        href="{{ url('/register') }}">{{ __('messages.register_now!') }}</a>
-                                </div>
+                                </div> --}}
                                 <p class="text-muted login-group__sub-title mb-4 text-center">{{ __('messages.sign_in_to_your_account') }}</p>
                                 <div class="form-group mb-4 login-group__sub-title">
                                     {!! Form::label('email', __('messages.email').':' )!!}<span class="red">*</span>
@@ -59,14 +59,14 @@
                                                    class="me-2" {{ (Cookie::get('remember') !== null) ? 'checked' : '' }}> {{ __('messages.remember_me') }}
                                         </label>
                                     </div>
-                                    <div
+                                    {{-- <div
                                             class="text-end d-flex justify-content-end">
                                         <a class="btn btn-link px-0 py-0 login-group__sub-title register-link
                                                     text-decoration-none"
                                            href="{{ url('/password/reset') }}">
                                             {{ __('messages.forgot_password?') }}
                                         </a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="row flex-sm-row flex-column">
                                     <div class="col-12">
@@ -108,7 +108,7 @@
                         </div>
                     </div>
 
-                    <div class="card text-white bg-primary py-5 d-md-down-none text-center d-none">
+                    {{-- <div class="card text-white bg-primary py-5 d-md-down-none text-center d-none">
                         <div class="row card-body text-center h-100">
                             <div class="col-12 sign-up-div">
                                 <h1 class="login-group__signup-text">{{ __('messages.sign_up') }}</h1>
@@ -117,7 +117,7 @@
                                    href="{{ url('/register') }}">{{ __('messages.register_now!') }}</a>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

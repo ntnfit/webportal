@@ -182,6 +182,6 @@ Route::middleware([ 'auth', 'user.activated'])->group(function () {
      })->name('vendors.index');
 
      Route::get('/ns/items', function () {
-        return view('netsuite.employees');
+        return view('netsuite.items');
      })->name('items.index');
 });
