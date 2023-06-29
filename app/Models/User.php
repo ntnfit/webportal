@@ -198,15 +198,15 @@ class User extends Authenticatable
 
     const LANGUAGES = [
         'en' => 'English',
-        'es' => 'Spanish',
-        'fr' => 'French',
-        'de' => 'German',
-        'ru' => 'Russian',
-        'pt' => 'Portuguese',
-        'ar' => 'Arabic',
-        'zh' => 'Chinese',
-        'tr' => 'Turkish',
-        'it' => 'Italian',
+        // 'es' => 'Spanish',
+        // 'fr' => 'French',
+        // 'de' => 'German',
+        // 'ru' => 'Russian',
+        // 'pt' => 'Portuguese',
+        // 'ar' => 'Arabic',
+        // 'zh' => 'Chinese',
+        // 'tr' => 'Turkish',
+        // 'it' => 'Italian',
     ];
 
     public static $PATH = 'users';

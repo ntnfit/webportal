@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="{{ asset('vendor/power-gird/powergrid.css') }}">
 @endsection
 @section('content')
-<livewire:vendor-table/>
+<livewire:customer-table/>
 @endsection
 @section('js')
 <link rel="stylesheet" href="{{ asset('vendor/power-gird/powergrid.js') }}">

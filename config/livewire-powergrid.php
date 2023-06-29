@@ -22,7 +22,7 @@ return [
     | Plugins used: flatpickr.js to datepicker.
     |
     */
-    'alpinejs_cdn' => 'https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js',
+
     'plugins' => [
         /*
          * https://flatpickr.js.org

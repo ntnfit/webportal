@@ -1,42 +1,51 @@
-<li class="nav-item {{ Request::is('Transaction*') ? 'active' : '' }}">
-    <li style="text-align: left" class="nav-item {{ Request::is('Transaction*') ? 'active' : '' }} btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#transaction-collapse" aria-expanded="{{ Request::is('Transaction*') ? 'true' : 'false' }}">
-      <span style="font-size: initial;color: #9899ac;font-weight: 500; margin-left: 15px">  <i class="fa fa-database nav-icon me-4 {{ Request::is('Transaction*') ? 'active' : '' }}"></i>  Transactions</span>
+<li class="nav-item {{ Request::is('Transaction*') || Request::is('MasterData*') ? 'active' : '' }}">
+    <li style="text-align: left" class="nav-item {{ Request::is('Transaction*') ? 'active' : '' }}
+    btn btn-toggle align-items-center rounded collapsed"
+    data-bs-toggle="collapse" data-bs-target="#transaction-collapse" aria-expanded="false" data-bs-parent="#dashboard-collapse">
+      <span style="font-size: initial;color: #9899ac;font-weight: 500; margin-left: 15px">
+        <i class="fa fa-database nav-icon me-4 {{ Request::is('Transaction*') ? 'active' : '' }}"></i>
+        Transaction
+      </span>
     </li>
     <div class="collapse {{ Request::is('Transaction*') ? 'show' : '' }}" id="transaction-collapse">
       <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-        <li class="nav-item {{ Request::is('salesorder*') ? 'active' : '' }}">
-          <a class="nav-link {{ Request::is('salesorder*') ? 'active' : '' }}" href="">
-            <i class="nav-icon me-4" style="font-size: 20px;"></i>
-            <span>Sales order</span>
-          </a>
-        </li>
-        <li class="nav-item {{ Request::is('quotation*') ? 'active' : '' }}">
-          <a class="nav-link {{ Request::is('quotation*') ? 'active' : '' }}" href="">
-            <i class="nav-icon me-4" style="font-size: 20px;"></i>
-            <span>Quotation</span>
+        <li class="nav-item {{ Request::is('fixed-asset*') ? 'active' : '' }}">
+          <a class="nav-link {{ Request::is('fixed-asset*') ? 'active' : '' }}" href="">
+            <i class="nav-icon me-4" style="font-size: 20px;">🏢</i>
+            <span>Fixed Asset</span>
           </a>
         </li>
         <li class="nav-item {{ Request::is('contract*') ? 'active' : '' }}">
           <a class="nav-link {{ Request::is('contract*') ? 'active' : '' }}" href="">
-            <i class="nav-icon me-4" style="font-size: 20px;"></i>
+            <i class="nav-icon me-4" style="font-size: 20px;">📄</i>
             <span>Contract</span>
           </a>
         </li>
-        <li class="nav-item {{ Request::is('fixedasset*') ? 'active' : '' }}">
-          <a class="nav-link {{ Request::is('fixedasset*') ? 'active' : '' }}" href="">
-            <i class="nav-icon me-4" style="font-size: 20px;"></i>
-            <span>Fixed Asset</span>
+        <li class="nav-item {{ Request::is('quotation*') ? 'active' : '' }}">
+          <a class="nav-link {{ Request::is('quotation*') ? 'active' : '' }}" href="">
+            <i class="nav-icon me-4" style="font-size: 20px;">💼</i>
+            <span>Quotation</span>
+          </a>
+        </li>
+        <li class="nav-item {{ Request::is('sales-order*') ? 'active' : '' }}">
+          <a class="nav-link {{ Request::is('sales-order*') ? 'active' : '' }}" href="">
+            <i class="nav-icon me-4" style="font-size: 20px;">💰</i>
+            <span>Sales Order</span>
           </a>
         </li>
       </ul>
     </div>
   </li>
-  
   <li class="nav-item {{ Request::is('MasterData*') ? 'active' : '' }}">
-    <li style="text-align: left" class="nav-item {{ Request::is('MasterData*') ? 'active' : '' }} btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="{{ Request::is('Transaction*') ? 'false' : 'true' }}">
-      <span style="font-size: initial;color: #9899ac;font-weight: 500; margin-left: 15px">  <i class="fa fa-database nav-icon me-4 {{ Request::is('MasterData*') ? 'active' : '' }}"></i>  Master data</span>
+    <li style="text-align: left" class="nav-item {{ Request::is('MasterData*') ? 'active' : '' }}
+    btn btn-toggle align-items-center rounded collapsed"
+    data-bs-toggle="collapse" data-bs-target="#masterdata-collapse" aria-expanded="false" data-bs-parent="#dashboard-collapse">
+      <span style="font-size: initial;color: #9899ac;font-weight: 500; margin-left: 15px">
+        <i class="fa fa-database nav-icon me-4 {{ Request::is('MasterData*') ? 'active' : '' }}"></i>
+        Master data
+      </span>
     </li>
-    <div class="collapse {{ Request::is('MasterData*') ? 'show' : '' }}" id="dashboard-collapse">
+    <div class="collapse {{ Request::is('MasterData*') ? 'show' : '' }}" id="masterdata-collapse">
       <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
         <li class="nav-item {{ Request::is('employees*') ? 'active' : '' }}">
           <a class="nav-link {{ Request::is('employees*') ? 'active' : '' }}" href="{{ route('employees.index') }}">
@@ -56,8 +65,8 @@
             <span>Customers</span>
           </a>
         </li>
-        <li class="nav-item {{ Request::is('customer*') ? 'active' : '' }}">
-          <a class="nav-link {{ Request::is('customer*') ? 'active' : '' }}" href="{{ route('items.index') }}">
+        <li class="nav-item {{ Request::is('items*') ? 'active' : '' }}">
+          <a class="nav-link {{ Request::is('items*') ? 'active' : '' }}" href="{{ route('items.index') }}">
             <i class="nav-icon me-4" style="font-size: 20px;">🥝</i>
             <span>Items</span>
           </a>
@@ -65,7 +74,8 @@
       </ul>
     </div>
   </li>
-  
+
+
 @can('manage_conversations')
 <li class="nav-item {{ Request::is('conversations*') ? 'active' : '' }}">
     <a class="nav-link {{ Request::is('conversations*') ? 'active' : '' }}" href="{{ url('conversations')  }}">
@@ -131,4 +141,15 @@
             <span>{{ __('messages.settings') }}</span>
         </a>
     </li>
-@endcan 
+@endcan
+<script>
+    $(document).ready(function() {
+      $('#transaction-collapse').on('show.bs.collapse', function() {
+        $('#masterdata-collapse').collapse('hide');
+      });
+
+      $('#masterdata-collapse').on('show.bs.collapse', function() {
+        $('#transaction-collapse').collapse('hide');
+      });
+    });
+    </script>

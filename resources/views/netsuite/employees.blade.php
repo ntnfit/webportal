@@ -1,10 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.appclone')
 @section('page_css')
-<link rel="stylesheet" href="{{ asset('vendor/livewire-power/powergrid.css') }}">
+<style>
+
+</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ asset('vendor/power-gird/powergrid.css') }}">
 @endsection
 @section('content')
 <livewire:employee-table/>
 @endsection
 @section('js')
-<link rel="stylesheet" href="{{ asset('vendor/livewire-power/powergrid.js') }}">
+<link rel="stylesheet" href="{{ asset('vendor/power-gird/powergrid.js') }}">
 @endsection
