@@ -30,9 +30,9 @@
     <link rel="stylesheet" href="{{ mix('assets/css/font-awesome.css') }}">
     <link rel="stylesheet" href="{{ asset('css/emojionearea.min.css') }}">
     @yield('page_css')
-    <link rel="stylesheet" href="{{ asset('assets/css/style_app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style_app.css') }}">
     @yield('css')
-    <link rel="stylesheet" href="{{ asset('assets/css/custom-style-app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/custom-style-app.css') }}">
 </head>
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
 <header class="app-header navbar">
