@@ -1,54 +1,71 @@
-@can('manage_conversations')
-<li class="nav-item {{ Request::is('conversations*') ? 'active' : '' }}">
-    <a class="nav-link {{ Request::is('conversations*') ? 'active' : '' }}" href="{{ url('conversations')  }}">
-        <i class="fa fa-commenting nav-icon me-4"></i>
-        <span style="font-size: initial;">{{ __('messages.conversations') }}</span>
-    </a>
-</li>
-@endcan
-
-<li class="nav-item {{ Request::is('MasterData*') ? 'active' : '' }}">
-
-    <li style="text-align: left" class="nav-item {{ Request::is('MasterData*') ? 'active' : '' }} btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-
-           
-      <span style="font-size: initial;color: #9899ac;font-weight: 500; margin-left: 15px">  <i class="fa fa-database nav-icon me-4 {{ Request::is('MasterData*') ? 'active' : '' }}" ></i>  Master data</span>
+<li class="nav-item {{ Request::is('Transaction*') ? 'active' : '' }}">
+    <li style="text-align: left" class="nav-item {{ Request::is('Transaction*') ? 'active' : '' }} btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#transaction-collapse" aria-expanded="{{ Request::is('Transaction*') ? 'true' : 'false' }}">
+      <span style="font-size: initial;color: #9899ac;font-weight: 500; margin-left: 15px">  <i class="fa fa-database nav-icon me-4 {{ Request::is('Transaction*') ? 'active' : '' }}"></i>  Transactions</span>
     </li>
-    <div class="collapse {{ Request::is('employees*') ? 'show' : '' }}" id="dashboard-collapse">
-
+    <div class="collapse {{ Request::is('Transaction*') ? 'show' : '' }}" id="transaction-collapse">
       <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-        <li class="nav-item {{ Request::is('employees*') ? 'active' : '' }}">
-            <a class="nav-link {{ Request::is('employees*') ? 'active' : '' }}" href="{{ route('employees.index') }}">
-                <i class="nav-icon me-4" style="
-                   font-size: 20px;">👷</i>
-                <span>Employees</span>
-            </a>
+        <li class="nav-item {{ Request::is('salesorder*') ? 'active' : '' }}">
+          <a class="nav-link {{ Request::is('salesorder*') ? 'active' : '' }}" href="">
+            <i class="nav-icon me-4" style="font-size: 20px;"></i>
+            <span>Sales order</span>
+          </a>
         </li>
-        <li class="nav-item {{ Request::is('vendors*') ? 'active' : '' }}">
-            <a class="nav-link {{ Request::is('vendors*') ? 'active' : '' }}" href="{{ route('vendors.index') }}">
-                <i class="nav-icon me-4" style="
-                  font-size: 20px;">🚛</i>
-                <span>vendors</span>
-            </a>
+        <li class="nav-item {{ Request::is('quotation*') ? 'active' : '' }}">
+          <a class="nav-link {{ Request::is('quotation*') ? 'active' : '' }}" href="">
+            <i class="nav-icon me-4" style="font-size: 20px;"></i>
+            <span>Quotation</span>
+          </a>
         </li>
-         <li class="nav-item {{ Request::is('customer*') ? 'active' : '' }}">
-            <a class="nav-link {{ Request::is('customer*') ? 'active' : '' }}" href="{{ route('customers.index') }}">
-                <i class="nav-icon me-4" style="
-                   font-size: 20px;">🤝</i>
-                <span>Customers</span>
-            </a>
+        <li class="nav-item {{ Request::is('contract*') ? 'active' : '' }}">
+          <a class="nav-link {{ Request::is('contract*') ? 'active' : '' }}" href="">
+            <i class="nav-icon me-4" style="font-size: 20px;"></i>
+            <span>Contract</span>
+          </a>
         </li>
-        <li class="nav-item {{ Request::is('customer*') ? 'active' : '' }}">
-            <a class="nav-link {{ Request::is('customer*') ? 'active' : '' }}" href="{{ route('items.index') }}">
-                <i class="nav-icon me-4" style="
-                   font-size: 20px;">🥝</i>
-                <span>Items</span>
-            </a>
+        <li class="nav-item {{ Request::is('fixedasset*') ? 'active' : '' }}">
+          <a class="nav-link {{ Request::is('fixedasset*') ? 'active' : '' }}" href="">
+            <i class="nav-icon me-4" style="font-size: 20px;"></i>
+            <span>Fixed Asset</span>
+          </a>
         </li>
       </ul>
     </div>
-</li>
-
+  </li>
+  
+  <li class="nav-item {{ Request::is('MasterData*') ? 'active' : '' }}">
+    <li style="text-align: left" class="nav-item {{ Request::is('MasterData*') ? 'active' : '' }} btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="{{ Request::is('Transaction*') ? 'false' : 'true' }}">
+      <span style="font-size: initial;color: #9899ac;font-weight: 500; margin-left: 15px">  <i class="fa fa-database nav-icon me-4 {{ Request::is('MasterData*') ? 'active' : '' }}"></i>  Master data</span>
+    </li>
+    <div class="collapse {{ Request::is('MasterData*') ? 'show' : '' }}" id="dashboard-collapse">
+      <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+        <li class="nav-item {{ Request::is('employees*') ? 'active' : '' }}">
+          <a class="nav-link {{ Request::is('employees*') ? 'active' : '' }}" href="{{ route('employees.index') }}">
+            <i class="nav-icon me-4" style="font-size: 20px;">👷</i>
+            <span>Employees</span>
+          </a>
+        </li>
+        <li class="nav-item {{ Request::is('vendors*') ? 'active' : '' }}">
+          <a class="nav-link {{ Request::is('vendors*') ? 'active' : '' }}" href="{{ route('vendors.index') }}">
+            <i class="nav-icon me-4" style="font-size: 20px;">🚛</i>
+            <span>Vendors</span>
+          </a>
+        </li>
+        <li class="nav-item {{ Request::is('customer*') ? 'active' : '' }}">
+          <a class="nav-link {{ Request::is('customer*') ? 'active' : '' }}" href="{{ route('customers.index') }}">
+            <i class="nav-icon me-4" style="font-size: 20px;">🤝</i>
+            <span>Customers</span>
+          </a>
+        </li>
+        <li class="nav-item {{ Request::is('customer*') ? 'active' : '' }}">
+          <a class="nav-link {{ Request::is('customer*') ? 'active' : '' }}" href="{{ route('items.index') }}">
+            <i class="nav-icon me-4" style="font-size: 20px;">🥝</i>
+            <span>Items</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </li>
+  
 @can('manage_conversations')
 <li class="nav-item {{ Request::is('conversations*') ? 'active' : '' }}">
     <a class="nav-link {{ Request::is('conversations*') ? 'active' : '' }}" href="{{ url('conversations')  }}">
