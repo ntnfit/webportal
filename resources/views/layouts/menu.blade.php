@@ -3,7 +3,7 @@
     btn btn-toggle align-items-center rounded collapsed"
     data-bs-toggle="collapse" data-bs-target="#transaction-collapse" aria-expanded="false" data-bs-parent="#dashboard-collapse">
       <span style="font-size: initial;color: #9899ac;font-weight: 500; margin-left: 15px">
-        <i class="fa fa-database nav-icon me-4 {{ Request::is('Transaction*') ? 'active' : '' }}"></i>
+        <i class="fa fa-credit-card nav-icon me-4 {{ Request::is('Transaction*') ? 'active' : '' }}"></i>
         Transaction
       </span>
     </li>
