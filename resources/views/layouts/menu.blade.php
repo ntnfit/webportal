@@ -16,7 +16,7 @@
           </a>
         </li>
         <li class="nav-item {{ Request::is('contract*') ? 'active' : '' }}">
-          <a class="nav-link {{ Request::is('contract*') ? 'active' : '' }}" href="">
+          <a class="nav-link {{ Request::is('contract*') ? 'active' : '' }}" href="{{route('contract.index')}}">
             <i class="nav-icon me-4" style="font-size: 20px;">📄</i>
             <span>Contract</span>
           </a>

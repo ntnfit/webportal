@@ -13,7 +13,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FrontCMSController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\main\ContractController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,7 +34,7 @@ Route::get('/users/impersonate-logout',
     [UserController::class, 'userImpersonateLogout'])->name('impersonate.userLogout');
 
 Route::middleware(['user.activated', 'auth'])->group(function () {
-    
+
 Route::get('/', function () {
     return view('home.index');
 });
@@ -184,4 +184,7 @@ Route::middleware([ 'auth', 'user.activated'])->group(function () {
      Route::get('/ns/items', function () {
         return view('netsuite.items');
      })->name('items.index');
+     Route::get('/contract', function () {
+        return view('contract.index');
+     })->name('contract.index');
 });
