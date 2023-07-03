@@ -14,6 +14,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\FrontCMSController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\main\ContractController;
+use App\Http\Controllers\API\GetMasterDataController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -140,13 +141,6 @@ Route::middleware(['permission:manage_reported_users', 'auth', 'user.activated']
     Route::resource('reported-users', ReportUserController::class);
 });
 
-Route::middleware([ 'auth', 'user.activated'])->group(function () {
-    Route::get('reported-users', [settingsController::class, 'index'])->name('employee');
-    Route::get('reported-users', [settingsController::class, 'index'])->name('vendors.index');
-    Route::get('reported-users',[settingsController::class, 'index'])->name('custopmers.index');
-    Route::get('reported-users', [settingsController::class, 'index'])->name('items.index');
-});
-
 // // meetings
 // Route::middleware(['permission:manage_meetings', 'auth', 'user.activated'])->group(function () {
 //     Route::resource('meetings', MeetingController::class);
@@ -187,4 +181,7 @@ Route::middleware([ 'auth', 'user.activated'])->group(function () {
      Route::get('/contract', function () {
         return view('contract.index');
      })->name('contract.index');
+
+    // GET MASTER DATA
+    Route::get('/vendor/{id}', [GetMasterDataController::class,'VendorID'])->name('vendor-detail');
 });

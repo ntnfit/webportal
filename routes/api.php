@@ -60,6 +60,8 @@ Route::middleware(['auth:api', 'user.activated'])->group(function () {
     Route::post('groups', [GroupAPIController::class, 'create'])->name('create-group');
     /** Social Login */
     Route::post('social-login/{provider}', [SocialAuthAPIController::class, 'socialLogin'])->middleware('web');
+
+
 });
 
 Route::middleware(['role:Admin', 'auth:api', 'user.activated'])->group(function () {
@@ -70,4 +72,6 @@ Route::middleware(['role:Admin', 'auth:api', 'user.activated'])->group(function 
 
     Route::resource('roles', RoleAPIController::class);
     Route::post('roles/{role}/update', [RoleAPIController::class, 'update']);
+
 });
+

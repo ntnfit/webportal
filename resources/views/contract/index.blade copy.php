@@ -173,5 +173,21 @@ src="{{asset('app/bootstrap-datetimepicker.min.js')}}">
             $(this).datetimepicker('hide');
         });
     </script>
+    <script>
+      $(document).ready(function() {
+    $('.select2').select2({
+      placeholder: 'Select an option',
+      allowClear: true,
+     // minimumResultsForSearch: Infinity // Hide search box initially
+    });
 
+        $('#vendor').select2({
+        placeholder: 'Chọn nhà cung cấp',
+       // allowClear: true,
+        // minimumResultsForSearch: Infinity // Hide search box initially
+});
+  });
+
+
+      </script>
 @endsection
