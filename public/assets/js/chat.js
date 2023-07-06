@@ -267,7 +267,7 @@ module.exports = JSON.parse('{"words":["ahole","anus","ash0le","ash0les","ashole
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
-/******/ 	
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
@@ -281,14 +281,14 @@ module.exports = JSON.parse('{"words":["ahole","anus","ash0le","ash0les","ashole
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
-/******/ 	
+/******/
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
-/******/ 	
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/ 	
+/******/
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
@@ -301,7 +301,7 @@ module.exports = JSON.parse('{"words":["ahole","anus","ash0le","ash0les","ashole
 /******/ 			return getter;
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -313,12 +313,12 @@ module.exports = JSON.parse('{"words":["ahole","anus","ash0le","ash0les","ashole
 /******/ 			}
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -329,7 +329,7 @@ module.exports = JSON.parse('{"words":["ahole","anus","ash0le","ash0les","ashole
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
@@ -4181,9 +4181,12 @@ $(document).ready(function () {
         });
         $('#imageCanvas').append(imgHtml);
         $('#copyImageModal').modal('show');
+        $('#fileUpload').modal('hide');
       }
     });
   }, false);
+
+
   $(document).on('click', '#sendImages', function (e) {
     var imagesArr = [];
     var imagesArrHtml = $('#imageCanvas').find('.img-thumbnail');
@@ -4226,6 +4229,8 @@ $(document).ready(function () {
 //Dropzon code
 var myDropzone = '';
 var sendMsgFiles = [];
+var clipboardImageCanvas = document.createElement('canvas');
+var clipboardImageContext = clipboardImageCanvas.getContext('2d');
 $('#submit-all').hide();
 $('#cancel-upload-file').hide();
 window.Dropzone.options.dropzone = {
